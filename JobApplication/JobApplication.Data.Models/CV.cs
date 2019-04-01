@@ -8,7 +8,7 @@ namespace JobApplication.Data.Models
     {
         public CV()
         {
-            Jobs = new List<string>();
+            Jobs = new List<Job>();
             Projects = new List<Project>();
         }
 
@@ -18,7 +18,7 @@ namespace JobApplication.Data.Models
 
         public int Experience { get; set; }
 
-        public List<string> Jobs { get; set; }
+        public ICollection<Job> Jobs { get; set; }
 
         public ICollection<Project> Projects { get; set; }
     }
