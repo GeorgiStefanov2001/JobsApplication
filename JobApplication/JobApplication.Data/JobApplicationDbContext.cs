@@ -1,14 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using JobApplication.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace JobApplication.Data
 {
-    class JobApplicationDbContext : DbContext
+    public class JobApplicationDbContext : DbContext
     {
         public JobApplicationDbContext(DbContextOptions<JobApplicationDbContext> options) 
             : base(options) { }
+
+        public DbSet<User> Users { get; set; }
+
+        public DbSet<Job> Job { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
