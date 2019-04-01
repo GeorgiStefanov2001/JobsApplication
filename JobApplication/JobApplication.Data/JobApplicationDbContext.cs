@@ -12,8 +12,9 @@ namespace JobApplication.Data
             : base(options) { }
 
         public DbSet<User> Users { get; set; }
-
-        public DbSet<Job> Job { get; set; }
+        public DbSet<Job> Jobs { get; set; }
+        public DbSet<CV> CVs { get; set; }
+        public DbSet<Project> Projects { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
