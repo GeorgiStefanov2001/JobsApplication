@@ -4,7 +4,6 @@ namespace JobApplication.Data
 {
     public static class ConfigurationData
     {
-        //Todo
-        public const string ConnectionString = "";
+        public const string ConnectionString = "Server=.\\GAS-LAPTOP; Database=JobApp; Integrated Security=true";
     }
 }
