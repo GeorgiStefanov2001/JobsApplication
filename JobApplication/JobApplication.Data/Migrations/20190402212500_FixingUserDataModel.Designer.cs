@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobApplication.Data.Migrations
 {
     [DbContext(typeof(JobApplicationDbContext))]
-    [Migration("20190402092238_FixingAge")]
-    partial class FixingAge
+    [Migration("20190402212500_FixingUserDataModel")]
+    partial class FixingUserDataModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -88,13 +88,9 @@ namespace JobApplication.Data.Migrations
 
                     b.Property<string>("Technology");
 
-                    b.Property<int?>("UserId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CVId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Projects");
                 });
@@ -123,6 +119,10 @@ namespace JobApplication.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email", "Username")
+                        .IsUnique()
+                        .HasFilter("[Email] IS NOT NULL AND [Username] IS NOT NULL");
+
                     b.ToTable("Users");
                 });
 
@@ -146,10 +146,6 @@ namespace JobApplication.Data.Migrations
                     b.HasOne("JobApplication.Data.Models.CV")
                         .WithMany("Projects")
                         .HasForeignKey("CVId");
-
-                    b.HasOne("JobApplication.Data.Models.User")
-                        .WithMany("Projects")
-                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }
