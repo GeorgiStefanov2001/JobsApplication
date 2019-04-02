@@ -17,9 +17,9 @@ namespace JobApplication.Controllers
             return this.View();
         }
 
-        [HttpPost] 
+        [HttpPost]
         public IActionResult Register(string firstName, string lastName, int age, string email, string username, string password, string confirmPassword)
-        {      
+        {
             if (ModelState.IsValid)
             {
                 service.Register(firstName, lastName, age, email, username, password, confirmPassword);
@@ -44,7 +44,5 @@ namespace JobApplication.Controllers
             }
             return RedirectToAction("Index","Home");
         }
-
-
     }
 }
