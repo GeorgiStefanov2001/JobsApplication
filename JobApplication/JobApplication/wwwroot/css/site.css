@@ -18,9 +18,10 @@ body {
     line-height: 1.4;
 }
 
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
+/* Make .png files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".png"] {
+    width: 1150px;
+    height: 600px;
 }
 
 /* QR code generator */
