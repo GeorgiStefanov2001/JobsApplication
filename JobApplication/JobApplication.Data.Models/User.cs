@@ -17,7 +17,7 @@ namespace JobApplication.Data.Models
 
         public string LastName { get; set; }
 
-        public int Age { get; set; }
+        public int? Age { get; set; }
 
         public string Email { get; set; }
 
@@ -26,8 +26,6 @@ namespace JobApplication.Data.Models
         public string Password { get; set; }
 
         public string ConfirmPassword { get; set; }
-
-        public int CVId { get; set; }
 
         public CV UserCv { get; set; }
 

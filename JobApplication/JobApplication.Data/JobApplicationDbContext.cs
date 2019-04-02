@@ -1,4 +1,5 @@
 ﻿using JobApplication.Data.Models;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,14 @@ namespace JobApplication.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            try
+            {
+                modelBuilder.Entity<User>().HasIndex(user => new { user.Email, user.Username }).IsUnique(true);
+            }
+            catch (Exception ex)
+            {
+                //TODO
+            }
         }
     }
 }

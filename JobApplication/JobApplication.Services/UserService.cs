@@ -2,10 +2,12 @@
 using JobApplication.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace JobApplication.Services
 {
+
     public class UserService : IUserService
     {
         private JobApplicationDbContext context;
@@ -17,8 +19,7 @@ namespace JobApplication.Services
 
 
         public int Register
-            (string firstName, string lastName, int age, string email,
-            string username, string password, string confirmPassword){
+            (string firstName, string lastName, int age, string email, string username, string password, string confirmPassword){
 
             var user = new User()
             {
@@ -31,8 +32,8 @@ namespace JobApplication.Services
                 ConfirmPassword = confirmPassword
             };
 
-            this.context.Users.Add(user);
-            this.context.SaveChanges();
+            context.Users.Add(user);
+            context.SaveChanges();
 
             return user.Id;
         }

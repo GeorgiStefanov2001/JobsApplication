@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JobApplication.Data.Models;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace JobApplication.ViewModels
@@ -8,10 +9,12 @@ namespace JobApplication.ViewModels
 
         [Display(Name = "First Name")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a first name")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,30}$", ErrorMessage = "A name should only contain letters")]
         public string FirstName { get; set; }
 
         [Display(Name = "Last Name")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a last name")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,30}$", ErrorMessage = "A name should only contain letters")]
         public string LastName { get; set; }
 
         [Display(Name = "Age")]
@@ -24,6 +27,7 @@ namespace JobApplication.ViewModels
 
         [Display(Name = "Username")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a username")]
+        [RegularExpression("[A-Za-z][A-Za-z0-9._]{4,14}", ErrorMessage = "The username should be between 5 and 14 characters and not start with a number")]
         public string Username { get; set; }
 
         [Display(Name = "Password")]

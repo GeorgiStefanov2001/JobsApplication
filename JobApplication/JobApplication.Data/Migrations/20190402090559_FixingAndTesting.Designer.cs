@@ -4,14 +4,16 @@ using JobApplication.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace JobApplication.Data.Migrations
 {
     [DbContext(typeof(JobApplicationDbContext))]
-    partial class JobApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190402090559_FixingAndTesting")]
+    partial class FixingAndTesting
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,7 +105,7 @@ namespace JobApplication.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("Age");
+                    b.Property<int>("Age");
 
                     b.Property<string>("ConfirmPassword");
 
@@ -120,10 +122,6 @@ namespace JobApplication.Data.Migrations
                     b.Property<string>("Username");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Email", "Username")
-                        .IsUnique()
-                        .HasFilter("[Email] IS NOT NULL AND [Username] IS NOT NULL");
 
                     b.ToTable("Users");
                 });

@@ -1,9 +1,5 @@
 ﻿using JobApplication.Services;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace JobApplication.Controllers
 {
@@ -24,7 +20,7 @@ namespace JobApplication.Controllers
         [HttpPost] 
         public IActionResult Register(string firstName, string lastName, int age, string email,
             string username, string password, string confirmPassword)
-        {
+        {      
             if (ModelState.IsValid)
             {
                 service.Register(firstName, lastName, age, email, username, password, confirmPassword);
