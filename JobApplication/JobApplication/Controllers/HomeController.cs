@@ -5,13 +5,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using JobApplication.Models;
+using JobApplication.Services;
 
 namespace JobApplication.Controllers
 {
     public class HomeController : Controller
     {
+
         public IActionResult Index()
         {
+            if (LoggedUserInfo.LoggedUserId==0)
+            {
+                return View("~/Views/User/Login.cshtml");
+            }
             return View();
         }
 
