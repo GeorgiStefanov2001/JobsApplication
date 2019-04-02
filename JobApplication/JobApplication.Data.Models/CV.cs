@@ -18,8 +18,6 @@ namespace JobApplication.Data.Models
 
         public int Experience { get; set; }
 
-        //public User User { get; set; }
-
         public ICollection<Job> Jobs { get; set; }
 
         public ICollection<Project> Projects { get; set; }
