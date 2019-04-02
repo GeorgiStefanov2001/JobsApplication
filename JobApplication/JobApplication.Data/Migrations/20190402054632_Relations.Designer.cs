@@ -4,14 +4,16 @@ using JobApplication.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace JobApplication.Data.Migrations
 {
     [DbContext(typeof(JobApplicationDbContext))]
-    partial class JobApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190402054632_Relations")]
+    partial class Relations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,26 +102,23 @@ namespace JobApplication.Data.Migrations
 
                     b.Property<int>("Age");
 
-                    b.Property<string>("ConfirmPassword");
+                    b.Property<int>("CVId");
 
-                    b.Property<string>("Email")
-                        .IsRequired();
+                    b.Property<string>("Email");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired();
+                    b.Property<string>("FirstName");
 
-                    b.Property<string>("LastName")
-                        .IsRequired();
+                    b.Property<string>("LastName");
 
-                    b.Property<string>("Password")
-                        .IsRequired();
+                    b.Property<string>("Password");
 
                     b.Property<DateTime>("UserCreatedOn");
 
-                    b.Property<string>("Username")
-                        .IsRequired();
+                    b.Property<string>("Username");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CVId");
 
                     b.ToTable("Users");
                 });
@@ -140,6 +139,14 @@ namespace JobApplication.Data.Migrations
                     b.HasOne("JobApplication.Data.Models.User")
                         .WithMany("Projects")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("JobApplication.Data.Models.User", b =>
+                {
+                    b.HasOne("JobApplication.Data.Models.CV", "UserCv")
+                        .WithMany()
+                        .HasForeignKey("CVId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

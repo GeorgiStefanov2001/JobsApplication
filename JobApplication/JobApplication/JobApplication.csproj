@@ -11,10 +11,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\JobApplication.Data\JobApplication.Data.csproj" />
+    <ProjectReference Include="..\JobApplication.Services\JobApplication.Services.csproj" />
+    <ProjectReference Include="..\JobApplication.ViewModels\JobApplication.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

@@ -4,14 +4,16 @@ using JobApplication.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace JobApplication.Data.Migrations
 {
     [DbContext(typeof(JobApplicationDbContext))]
-    partial class JobApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190402070742_FixingRelationships")]
+    partial class FixingRelationships
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,6 +102,8 @@ namespace JobApplication.Data.Migrations
 
                     b.Property<int>("Age");
 
+                    b.Property<int>("CVId");
+
                     b.Property<string>("ConfirmPassword");
 
                     b.Property<string>("Email")
@@ -121,6 +125,9 @@ namespace JobApplication.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CVId")
+                        .IsUnique();
+
                     b.ToTable("Users");
                 });
 
@@ -140,6 +147,14 @@ namespace JobApplication.Data.Migrations
                     b.HasOne("JobApplication.Data.Models.User")
                         .WithMany("Projects")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("JobApplication.Data.Models.User", b =>
+                {
+                    b.HasOne("JobApplication.Data.Models.CV", "UserCV")
+                        .WithOne("User")
+                        .HasForeignKey("JobApplication.Data.Models.User", "CVId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
