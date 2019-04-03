@@ -8,7 +8,6 @@ namespace JobApplication.Services.Interfaces
     {
         int CreateJob(string name,
                       int salary,
-                      string employer,
                       string category,
                       string description,
                       int requiredExperience,

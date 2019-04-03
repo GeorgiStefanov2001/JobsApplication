@@ -25,14 +25,13 @@ namespace JobApplication.Controllers
         [HttpPost]
         public IActionResult CreateJob(string name,
                              int salary,
-                             string employer,
                              string category,
                              string description,
                              int requiredExperience,
                              string requiredEducation){
             if (ModelState.IsValid)
             {
-                service.CreateJob(name, salary, employer, category, description, requiredExperience, requiredEducation);
+                service.CreateJob(name, salary, category, description, requiredExperience, requiredEducation);
             }
             return this.RedirectToAction("Index", "Home");
         }

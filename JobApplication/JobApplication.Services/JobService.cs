@@ -10,25 +10,28 @@ namespace JobApplication.Services
     public class JobService : IJobService
     {
         private JobApplicationDbContext context;
+        private IUserService service;
 
-        public JobService(JobApplicationDbContext context)
+        public JobService(JobApplicationDbContext context, IUserService service)
         {
             this.context = context;
+            this.service = service;
         }
 
         public int CreateJob(string name, 
                              int salary, 
-                             string employer, 
                              string category, 
                              string description, 
                              int requiredExperience, 
                              string requiredEducation){
 
+            var loggedUser = service.GetLoggedUser();
+
             var job = new Job
             {
                 Name = name,
                 Salary = salary,
-                Employer = employer,
+                Employer = loggedUser.FirstName + " " + loggedUser.LastName, 
                 Category = category,
                 Description = description,
                 RequiredExperience = requiredExperience,
