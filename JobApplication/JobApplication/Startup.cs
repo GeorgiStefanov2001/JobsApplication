@@ -40,6 +40,7 @@ namespace JobApplication
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<JobApplicationDbContext>(options => options.UseSqlServer(ConfigurationData.ConnectionString));
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICvService, CvService>();
             services.AddScoped<IJobService, JobService>();
         }
 

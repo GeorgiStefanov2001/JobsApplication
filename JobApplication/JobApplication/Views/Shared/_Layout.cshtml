@@ -46,6 +46,10 @@
                 </ul>
                 @if (loggedUser != null)
                 {
+                    <ul class="nav navbar-nav">
+                        <li><a asp-area="" asp-controller="Cvs" asp-action="CreateCv">Create CV</a></li>
+                    </ul>
+
                     <ul class="nav navbar-nav navbar-right">
                         <li style="color:white; padding-top: 15px;">Hello @loggedUser.FirstName @loggedUser.LastName!</li>
                         <li style="padding-left: 15px;"><a asp-area="" asp-controller="User" asp-action="Login">Log out</a></li>
