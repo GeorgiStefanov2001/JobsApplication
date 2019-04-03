@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using JobApplication.Data;
 using JobApplication.Services;
+using JobApplication.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -39,6 +40,7 @@ namespace JobApplication
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<JobApplicationDbContext>(options => options.UseSqlServer(ConfigurationData.ConnectionString));
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IJobService, JobService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

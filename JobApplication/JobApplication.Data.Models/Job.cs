@@ -20,6 +20,6 @@ namespace JobApplication.Data.Models
 
         public int? RequiredExperience { get; set; }
 
-        public int? RequiredEducation { get; set; }
+        public string RequiredEducation { get; set; }
     }
 }
