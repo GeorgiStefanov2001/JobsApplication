@@ -44,7 +44,8 @@ namespace JobApplication.Controllers
             ViewData["Message"] = "Your application description page.";
 
             User loggedUser = UserService.GetLoggedUser();
-            return View(loggedUser);
+            ViewData["LoggedUser"] = loggedUser;
+            return View();
         }
 
         public IActionResult Contact()
@@ -52,13 +53,15 @@ namespace JobApplication.Controllers
             ViewData["Message"] = "Your contact page.";
 
             User loggedUser = UserService.GetLoggedUser();
-            return View(loggedUser);
+            ViewData["LoggedUser"] = loggedUser;
+            return View();
         }
 
         public IActionResult Privacy()
         {
             User loggedUser = UserService.GetLoggedUser();
-            return View(loggedUser);
+            ViewData["LoggedUser"] = loggedUser;
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
