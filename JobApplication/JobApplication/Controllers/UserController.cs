@@ -18,11 +18,18 @@ namespace JobApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(string firstName, string lastName, int age, string email, string username, string password, string confirmPassword)
+        public IActionResult Register(string firstName, 
+                                      string lastName, 
+                                      int age, 
+                                      string email, 
+                                      string username, 
+                                      string password, 
+                                      string confirmPassword, 
+                                      bool isEmployer)
         {
             if (ModelState.IsValid)
             {
-                service.Register(firstName, lastName, age, email, username, password, confirmPassword);
+                service.Register(firstName, lastName, age, email, username, password, confirmPassword, isEmployer);
             }
             return this.RedirectToAction("Login", "User");
         }

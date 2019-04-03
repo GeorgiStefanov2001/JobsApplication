@@ -15,7 +15,15 @@ namespace JobApplication.Services
         }
 
 
-        public int Register(string firstName, string lastName, int age, string email, string username, string password, string confirmPassword){
+        public int Register(string firstName, 
+                            string lastName, 
+                            int age, 
+                            string email, 
+                            string username, 
+                            string password, 
+                            string confirmPassword, 
+                            bool isEmployer)
+        {
 
             var user = new User()
             {
@@ -25,7 +33,8 @@ namespace JobApplication.Services
                 Email = email,
                 Username = username,
                 Password = password,
-                ConfirmPassword = confirmPassword
+                ConfirmPassword = confirmPassword,
+                IsEmployer = isEmployer
             };
 
             context.Users.Add(user);

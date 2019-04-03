@@ -40,5 +40,8 @@ namespace JobApplication.ViewModels
         [Compare("Password", ErrorMessage = "Passwords don't match")]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "Are you an employer")]
+        public bool IsEmployer { get; set; }
     }
 }

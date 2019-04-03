@@ -7,7 +7,14 @@ namespace JobApplication.Services
 {
     public interface IUserService
     {
-        int Register(string firstName, string lastName, int age, string email, string username, string password, string confirmPassword);
+        int Register(string firstName, 
+                     string lastName, 
+                     int age, 
+                     string email, 
+                     string username, 
+                     string password, 
+                     string confirmPassword, 
+                     bool isEmployer);
         int Login(string username, string password);
         User GetLoggedUser();
     }

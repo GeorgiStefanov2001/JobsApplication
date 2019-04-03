@@ -26,6 +26,8 @@ namespace JobApplication.Data.Models
 
         public string ConfirmPassword { get; set; }
 
+        public bool IsEmployer { get; set; }
+
         public CV UserCv { get; set; }
 
         public DateTime UserCreatedOn { get; set; }
