@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\JobApplication.Data\JobApplication.Data.csproj" />
+    <ProjectReference Include="..\JobApplication.ViewModels\JobApplication.ViewModels.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,8 +1,10 @@
 ﻿using JobApplication.Data;
 using JobApplication.Data.Models;
 using JobApplication.Services.Interfaces;
+using JobApplication.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace JobApplication.Services
@@ -19,7 +21,7 @@ namespace JobApplication.Services
         }
 
         public int CreateJob(string name, 
-                             int salary, 
+                             decimal salary, 
                              string category, 
                              string description, 
                              int requiredExperience, 
@@ -42,6 +44,23 @@ namespace JobApplication.Services
             context.SaveChanges();
 
             return job.Id;
+        }
+
+        public AllJobsViewModel GetAllJobs()
+        {
+            var jobs = context.Jobs.Select(j => new CreateJobViewModel()
+            {
+                Name = j.Name,
+                Salary = j.Salary,
+                Category = j.Category,
+                Description = j.Description,
+                RequiredExperience = j.RequiredExperience,
+                RequiredEducation = j.RequiredEducation
+            });
+
+            var model = new AllJobsViewModel() { Jobs = jobs };
+
+            return model;
         }
     }
 }

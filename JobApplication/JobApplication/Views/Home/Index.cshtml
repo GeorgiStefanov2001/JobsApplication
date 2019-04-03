@@ -1,8 +1,18 @@
-﻿@{
+﻿@using JobApplication.Services;
+@using JobApplication.ViewModels;
+
+@{
     ViewData["Title"] = "Home Page";
+    AllJobsViewModel jobs = ViewData["AllJobs"] as AllJobsViewModel;
 }
 
-<div id="mycarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+@foreach(var job in jobs.Jobs)
+{
+    <p>@job.Name</p>
+}
+
+
+@*<div id="mycarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
         <li data-target="#mycarousel" data-slide-to="0" class="active"></li>
         <li data-target="#mycarousel" data-slide-to="1"></li>
@@ -56,4 +66,4 @@
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         <span class="sr-only">next</span>
     </a>
-</div>
+</div>*@

@@ -1,4 +1,8 @@
-﻿@model JobApplication.Data.Models.User
+﻿@using JobApplication.Data.Models;
+
+@{ 
+    User loggedUser = ViewData["LoggedUser"] as User;
+}
 
 <!DOCTYPE html>
 <html>
@@ -35,17 +39,17 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    @if (Model != null && Model.IsEmployer)
+                    @if (loggedUser != null && loggedUser.IsEmployer)
                     {
                         <li><a asp-area="" asp-controller="Jobs" asp-action="CreateJob">Create Job</a></li>
                     }
                 </ul>
-                @if (Model != null)
+                @if (loggedUser != null)
                 {
-                <ul class="nav navbar-nav navbar-right">
-                    <li style="color:white; padding-top: 15px;">Hello @Model.FirstName @Model.LastName!</li>
-                    <li style="padding-left: 15px;"><a asp-area="" asp-controller="User" asp-action="Login">Log out</a></li>
-                </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li style="color:white; padding-top: 15px;">Hello @loggedUser.FirstName @loggedUser.LastName!</li>
+                        <li style="padding-left: 15px;"><a asp-area="" asp-controller="User" asp-action="Login">Log out</a></li>
+                    </ul>
                 }
             </div>
         </div>

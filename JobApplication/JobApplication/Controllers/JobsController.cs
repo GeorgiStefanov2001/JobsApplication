@@ -24,7 +24,7 @@ namespace JobApplication.Controllers
 
         [HttpPost]
         public IActionResult CreateJob(string name,
-                             int salary,
+                             decimal salary,
                              string category,
                              string description,
                              int requiredExperience,

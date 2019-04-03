@@ -8,25 +8,29 @@ namespace JobApplication.ViewModels
     public class CreateJobViewModel
     {
         [Display(Name = "Name")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a last name")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter name")]
         [RegularExpression(@"^[a-zA-Z''-'\s]{1,30}$", ErrorMessage = "A name should only contain letters")]
         public string Name { get; set; }
 
         [Display(Name = "Salary")]
-        public int Salary { get; set; }
+        [Required(ErrorMessage = "Please enter a salary")]
+        public decimal Salary { get; set; }
 
         [Display(Name = "Category")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a last name")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a category")]
         [RegularExpression(@"^[a-zA-Z''-'\s]{1,30}$", ErrorMessage = "A category should only contain letters")]
         public string Category { get; set; }
 
+        [Display(Name = "Description")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a description")]
+        [RegularExpression("[A-Za-z][A-Za-z0-9._\\s*]{10,200}", ErrorMessage = "A description should not contain only numbers and must be between 10 and 200 characters")]
         public string Description { get; set; }
 
-        [Display(Name = "Rerquired Experience")]
+        [Display(Name = "Required Experience")]
         public int? RequiredExperience { get; set; }
 
         [Display(Name = "Required Education")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a last name")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a required education")]
         [RegularExpression(@"^[a-zA-Z''-'\s]{1,30}$", ErrorMessage = "An education should only contain letters")]
         public string RequiredEducation { get; set; }
     }
