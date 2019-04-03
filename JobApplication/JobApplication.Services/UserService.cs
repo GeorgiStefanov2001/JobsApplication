@@ -57,6 +57,10 @@ namespace JobApplication.Services
         public User GetLoggedUser()
         {
             var loggedUser = context.Users.FirstOrDefault(x => x.Id == LoggedUserInfo.LoggedUserId);
+            if (context.CVs.FirstOrDefault(c => c.UserId == loggedUser.Id) != null)
+            {
+                return context.CVs.FirstOrDefault(c => c.UserId == loggedUser.Id).User;
+            }
             return loggedUser;
         }
     }

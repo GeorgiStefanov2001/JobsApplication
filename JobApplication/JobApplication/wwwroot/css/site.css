@@ -12,6 +12,11 @@ body {
     padding-right: 15px;
 }
 
+.dropdown-custom-colors {
+    background-color: #333333;
+    color: white;
+}
+
 /* Carousel */
 .carousel-caption p {
     font-size: 20px;

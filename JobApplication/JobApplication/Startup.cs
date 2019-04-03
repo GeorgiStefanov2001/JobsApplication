@@ -42,6 +42,7 @@ namespace JobApplication
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICvService, CvService>();
             services.AddScoped<IJobService, JobService>();
+            services.AddScoped<IProjectService, ProjectService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
