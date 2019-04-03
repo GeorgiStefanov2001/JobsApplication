@@ -22,8 +22,7 @@ namespace JobApplication.Services
                             string username, 
                             string password, 
                             string confirmPassword, 
-                            bool isEmployer)
-        {
+                            bool isEmployer){
 
             var user = new User()
             {
@@ -57,10 +56,6 @@ namespace JobApplication.Services
 
         public User GetLoggedUser()
         {
-            foreach(var user in context.Users)
-            {
-                System.Console.WriteLine(user.Id);
-            }
             var loggedUser = context.Users.FirstOrDefault(x => x.Id == LoggedUserInfo.LoggedUserId);
             return loggedUser;
         }

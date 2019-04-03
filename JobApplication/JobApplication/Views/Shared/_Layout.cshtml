@@ -42,9 +42,10 @@
                 </ul>
                 @if (Model != null)
                 {
-                    <ul class="nav navbar-nav navbar-right" style="padding-top: 15px">
-                        <li style="color:white">Hello @Model.FirstName @Model.LastName!</li>
-                    </ul>
+                <ul class="nav navbar-nav navbar-right" style="padding-top: 15px">
+                    <li style="color:white">Hello @Model.FirstName @Model.LastName!</li>
+                    <li><a asp-area="" asp-controller="User" asp-action="Login">Log out</a></li>
+                </ul>
                 }
             </div>
         </div>

@@ -24,7 +24,7 @@ namespace JobApplication.Controllers
         {
             if (LoggedUserInfo.LoggedUserId==0)
             {
-                return View("~/Views/User/Login.cshtml");
+                return RedirectToAction("Login", "User");
             }
             User loggedUser = service.GetLoggedUser();
             return View(loggedUser);

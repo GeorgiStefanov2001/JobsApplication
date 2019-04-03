@@ -25,17 +25,17 @@ namespace JobApplication.Controllers
                                       string username, 
                                       string password, 
                                       string confirmPassword, 
-                                      bool isEmployer)
-        {
+                                      bool isEmployer) {
             if (ModelState.IsValid)
             {
                 service.Register(firstName, lastName, age, email, username, password, confirmPassword, isEmployer);
             }
-            return this.RedirectToAction("Login", "User");
+            return RedirectToAction("Login", "User");
         }
 
         public IActionResult Login()
         {
+            LoggedUserInfo.LoggedUserId = 0;
             return this.View();
         }
 
