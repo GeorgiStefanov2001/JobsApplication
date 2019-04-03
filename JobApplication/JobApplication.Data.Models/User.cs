@@ -8,7 +8,6 @@ namespace JobApplication.Data.Models
         public User()
         {
             UserCreatedOn = DateTime.UtcNow;
-            //Projects = new List<Project>();
         }
 
         public int Id { get; set; }
@@ -28,8 +27,6 @@ namespace JobApplication.Data.Models
         public string ConfirmPassword { get; set; }
 
         public CV UserCv { get; set; }
-
-        //public ICollection<Project> Projects { get; set; }
 
         public DateTime UserCreatedOn { get; set; }
     }

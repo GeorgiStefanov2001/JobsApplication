@@ -45,5 +45,15 @@ namespace JobApplication.Services
             }
             return -1;
         }
+
+        public User GetLoggedUser()
+        {
+            foreach(var user in context.Users)
+            {
+                System.Console.WriteLine(user.Id);
+            }
+            var loggedUser = context.Users.FirstOrDefault(x => x.Id == LoggedUserInfo.LoggedUserId);
+            return loggedUser;
+        }
     }
 }

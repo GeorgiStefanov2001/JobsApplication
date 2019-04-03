@@ -6,11 +6,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using JobApplication.Models;
 using JobApplication.Services;
+using JobApplication.Data;
+using JobApplication.Data.Models;
 
 namespace JobApplication.Controllers
 {
     public class HomeController : Controller
     {
+        private IUserService service;
+
+        public HomeController(IUserService service)
+        {
+            this.service = service;
+        }
 
         public IActionResult Index()
         {
@@ -18,26 +26,30 @@ namespace JobApplication.Controllers
             {
                 return View("~/Views/User/Login.cshtml");
             }
-            return View();
+            User loggedUser = service.GetLoggedUser();
+            return View(loggedUser);
         }
 
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
 
-            return View();
+            User loggedUser = service.GetLoggedUser();
+            return View(loggedUser);
         }
 
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
 
-            return View();
+            User loggedUser = service.GetLoggedUser();
+            return View(loggedUser);
         }
 
         public IActionResult Privacy()
         {
-            return View();
+            User loggedUser = service.GetLoggedUser();
+            return View(loggedUser);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

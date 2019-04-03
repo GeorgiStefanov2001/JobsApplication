@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model JobApplication.Data.Models.User
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -34,6 +36,12 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                 </ul>
+                @if (Model != null)
+                {
+                    <ul class="nav navbar-nav navbar-right" style="padding-top: 15px">
+                        <li style="color:white">Hello @Model.FirstName @Model.LastName!</li>
+                    </ul>
+                }
             </div>
         </div>
     </nav>
