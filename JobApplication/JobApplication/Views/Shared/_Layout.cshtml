@@ -56,6 +56,13 @@
                         <li style="padding-left: 15px;"><a asp-area="" asp-controller="User" asp-action="Login">Log out</a></li>
                     </ul>
                 }
+                else
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a asp-area="" asp-controller="User" asp-action="Login">Login</a></li>
+                        <li><a asp-area="" asp-controller="User" asp-action="Register">Register</a></li>
+                    </ul>
+                }
             </div>
         </div>
     </nav>
