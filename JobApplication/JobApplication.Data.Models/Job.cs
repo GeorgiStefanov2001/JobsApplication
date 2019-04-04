@@ -6,6 +6,11 @@ namespace JobApplication.Data.Models
 {
     public class Job
     {
+        public Job()
+        {
+            Applicants = new List<User>();
+        }
+
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -13,6 +18,8 @@ namespace JobApplication.Data.Models
         public decimal Salary { get; set; }
 
         public string Employer { get; set; }
+
+        public string EmployerPhoneNumber { get; set; }
 
         public string Category { get; set; }
 
@@ -23,5 +30,7 @@ namespace JobApplication.Data.Models
         public int? RequiredExperience { get; set; }
 
         public string RequiredEducation { get; set; }
+
+        public ICollection<User> Applicants { get; set; }
     }
 }

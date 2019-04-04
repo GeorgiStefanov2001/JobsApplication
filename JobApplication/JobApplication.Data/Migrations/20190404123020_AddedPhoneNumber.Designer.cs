@@ -4,14 +4,16 @@ using JobApplication.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace JobApplication.Data.Migrations
 {
     [DbContext(typeof(JobApplicationDbContext))]
-    partial class JobApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190404123020_AddedPhoneNumber")]
+    partial class AddedPhoneNumber
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,8 +52,6 @@ namespace JobApplication.Data.Migrations
                     b.Property<string>("Description");
 
                     b.Property<string>("Employer");
-
-                    b.Property<string>("EmployerPhoneNumber");
 
                     b.Property<string>("Name");
 
@@ -109,8 +109,6 @@ namespace JobApplication.Data.Migrations
 
                     b.Property<bool>("IsEmployer");
 
-                    b.Property<int?>("JobId");
-
                     b.Property<string>("LastName");
 
                     b.Property<string>("Password");
@@ -123,7 +121,9 @@ namespace JobApplication.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("JobId");
+                    b.HasIndex("Email", "Username")
+                        .IsUnique()
+                        .HasFilter("[Email] IS NOT NULL AND [Username] IS NOT NULL");
 
                     b.ToTable("Users");
                 });
@@ -141,13 +141,6 @@ namespace JobApplication.Data.Migrations
                     b.HasOne("JobApplication.Data.Models.CV")
                         .WithMany("Projects")
                         .HasForeignKey("CVId");
-                });
-
-            modelBuilder.Entity("JobApplication.Data.Models.User", b =>
-                {
-                    b.HasOne("JobApplication.Data.Models.Job")
-                        .WithMany("Applicants")
-                        .HasForeignKey("JobId");
                 });
 #pragma warning restore 612, 618
         }

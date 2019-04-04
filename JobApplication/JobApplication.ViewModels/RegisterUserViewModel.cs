@@ -25,6 +25,11 @@ namespace JobApplication.ViewModels
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
+        [Display(Name = "PhoneNumber")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a phone number")]
+        [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Please enter a valid phone number")]
+        public string PhoneNumber { get; set; }
+
         [Display(Name = "Username")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a username")]
         [RegularExpression("[A-Za-z][A-Za-z0-9._]{4,14}", ErrorMessage = "The username should be between 5 and 14 characters and not start with a number")]

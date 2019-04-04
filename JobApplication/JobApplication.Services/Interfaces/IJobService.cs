@@ -18,7 +18,9 @@ namespace JobApplication.Services.Interfaces
 
         AllJobsViewModel GetAllJobs();
 
-        Job ViewJob(string jobName);
+        Job ViewJob(int id);
+
+        int ApplyForJob(int id);
     }
 
 }

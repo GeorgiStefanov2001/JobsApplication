@@ -11,6 +11,7 @@ namespace JobApplication.Services
                      string lastName, 
                      int age, 
                      string email, 
+                     string phoneNumber,
                      string username, 
                      string password, 
                      string confirmPassword, 
