@@ -15,21 +15,31 @@ namespace JobApplication.Services
         }
 
 
-        public int Register(string firstName, 
-                            string lastName, 
-                            int age, 
-                            string email, 
-                            string username, 
-                            string password, 
-                            string confirmPassword, 
-                            bool isEmployer){
+        public int Register(string firstName,
+                            string lastName,
+                            int age,
+                            string email,
+                            string phoneNumber,
+                            string username,
+                            string password,
+                            string confirmPassword,
+                            bool isEmployer) {
 
+            bool takenInfo = context.Users.Where(x => x.Username == username).FirstOrDefault() != null 
+                || context.Users.Where(x => x.Email == email).FirstOrDefault() != null 
+                ||context.Users.Where(x => x.PhoneNumber == phoneNumber).FirstOrDefault() != null;
+
+            if (takenInfo)
+            {
+                return -1;
+            }
             var user = new User()
             {
                 FirstName = firstName,
                 LastName = lastName,
                 Age = age,
                 Email = email,
+                PhoneNumber = phoneNumber,
                 Username = username,
                 Password = password,
                 ConfirmPassword = confirmPassword,

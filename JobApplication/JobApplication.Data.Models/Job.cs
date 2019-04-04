@@ -14,6 +14,8 @@ namespace JobApplication.Data.Models
 
         public string Employer { get; set; }
 
+        public string EmployerPhoneNumber { get; set; }
+
         public string Category { get; set; }
 
         public string Description { get; set; }

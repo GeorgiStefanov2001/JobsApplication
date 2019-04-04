@@ -29,14 +29,7 @@ namespace JobApplication.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            try
-            {
-                modelBuilder.Entity<User>().HasIndex(user => new { user.Email, user.Username }).IsUnique(true);
-            }
-            catch (Exception ex)
-            {
-                //TODO
-            }
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

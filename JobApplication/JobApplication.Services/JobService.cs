@@ -35,6 +35,7 @@ namespace JobApplication.Services
                 Name = name,
                 Salary = salary,
                 Employer = loggedUser.FirstName + " " + loggedUser.LastName, 
+                EmployerPhoneNumber = loggedUser.PhoneNumber,
                 Category = category,
                 Description = description,
                 WorkPlace = workPlace,

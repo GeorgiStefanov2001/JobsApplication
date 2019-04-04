@@ -22,13 +22,17 @@ namespace JobApplication.Controllers
                                       string lastName, 
                                       int age, 
                                       string email, 
+                                      string phoneNumber,
                                       string username, 
                                       string password, 
                                       string confirmPassword, 
                                       bool isEmployer) {
             if (ModelState.IsValid)
             {
-                service.Register(firstName, lastName, age, email, username, password, confirmPassword, isEmployer);
+                if (service.Register(firstName, lastName, age, email, phoneNumber, username, password, confirmPassword, isEmployer) == -1) {
+                    ViewBag.Message = "Username/Email or Phone Number already taken!";
+                    return View();
+                }
             }
             return RedirectToAction("Login", "User");
         }
