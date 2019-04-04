@@ -13,16 +13,14 @@
         <li class="list-inline-item">
             <div class="card">
                 <div class="card-body">
-                    <h2 class="card-title">@job.Name</h2>
-                    <h3 class="text-muted">Salary: @job.Salary lv.</h3>
-                    <p>@job.Description</p>
-                    <h4> Requirments: </h4>
-                    <h5>Required Experience: @job.RequiredExperience</h5>
-                    <h5>Required Education: @job.RequiredEducation</h5>
-                    <a class="btn btn-primary btn-rounded" asp-area="" asp-controller="Jobs" asp-action="ViewJob" asp-route-jobName="@job.Name">Apply for job</a>
+                    <h2 class="card-title text-primary">@job.Name</h2>
+                    <h3 class="text-muted">Salary: @job.Salary lv</h3>
+                    <h4>Job category: @job.Category</h4>
+                    <h4>Work place: @job.WorkPlace</h4>
+                    <a class="btn btn-primary btn-rounded" asp-area="" asp-controller="Jobs" asp-action="ViewJob" asp-route-jobName="@job.Name">View job details</a>
                 </div>
             </div>
-            <hr style="border-top: 2px dashed black">
+            <hr/>
         </li>
         }
     </ul>

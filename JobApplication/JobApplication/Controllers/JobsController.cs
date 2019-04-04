@@ -28,11 +28,12 @@ namespace JobApplication.Controllers
                              decimal salary,
                              string category,
                              string description,
+                             string workPlace,
                              int requiredExperience,
                              string requiredEducation){
             if (ModelState.IsValid)
             {
-                service.CreateJob(name, salary, category, description, requiredExperience, requiredEducation);
+                service.CreateJob(name, salary, category, description, workPlace, requiredExperience, requiredEducation);
             }
             return this.RedirectToAction("Index", "Home");
         }

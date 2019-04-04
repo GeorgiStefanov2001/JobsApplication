@@ -18,6 +18,8 @@ namespace JobApplication.Data.Models
 
         public string Description { get; set; }
 
+        public string WorkPlace { get; set; }
+
         public int? RequiredExperience { get; set; }
 
         public string RequiredEducation { get; set; }

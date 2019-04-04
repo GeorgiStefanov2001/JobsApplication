@@ -24,6 +24,7 @@ namespace JobApplication.Services
                              decimal salary, 
                              string category, 
                              string description, 
+                             string workPlace,
                              int requiredExperience, 
                              string requiredEducation){
 
@@ -36,6 +37,7 @@ namespace JobApplication.Services
                 Employer = loggedUser.FirstName + " " + loggedUser.LastName, 
                 Category = category,
                 Description = description,
+                WorkPlace = workPlace,
                 RequiredExperience = requiredExperience,
                 RequiredEducation = requiredEducation
             };
@@ -53,9 +55,7 @@ namespace JobApplication.Services
                 Name = j.Name,
                 Salary = j.Salary,
                 Category = j.Category,
-                Description = j.Description,
-                RequiredExperience = j.RequiredExperience,
-                RequiredEducation = j.RequiredEducation
+                WorkPlace = j.WorkPlace
             });
 
             var model = new AllJobsViewModel() { Jobs = jobs };

@@ -12,6 +12,7 @@ namespace JobApplication.Services.Interfaces
                       decimal salary,
                       string category,
                       string description,
+                      string workPlace,
                       int requiredExperience,
                       string requiredEducation);
 
