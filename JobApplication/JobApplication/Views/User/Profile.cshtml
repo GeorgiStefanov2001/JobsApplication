@@ -1,0 +1,33 @@
+﻿@using JobApplication.Data.Models;
+
+@{
+    ViewData["Title"] = "Profile";
+    User user = ViewData["User"] as User;
+}
+
+
+<div class="list-group">
+    <ul class="list-unstyled">
+        <li class="list-inline-item">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Name: @user.FirstName @user.LastName</h2>
+                    <h3 class="text-muted">Age: @user.Age years old.</h3>
+                    <hr />
+                    <p>Email: @user.Email</p>
+                    @if (user.UserCv == null)
+                    {
+                        <a class="btn btn-primary btn-rounded" asp-area="" asp-controller="Cvs" asp-action="CreateCv">Create your CV</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-primary btn-rounded" asp-area="" asp-controller="Projects" asp-action="CreateProject">Add projects you've worked on</a>
+                    }
+                    <br />
+                    <br />
+                    <a class="btn btn-primary btn-rounded" asp-area="" asp-controller="Home" asp-action="Index">Back to all jobs</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

@@ -51,5 +51,11 @@ namespace JobApplication.Controllers
             }
             return RedirectToAction("Index","Home");
         }
+
+        public IActionResult Profile()
+        {
+            ViewData["User"] = service.GetLoggedUser();
+            return View();
+        }
     }
 }
