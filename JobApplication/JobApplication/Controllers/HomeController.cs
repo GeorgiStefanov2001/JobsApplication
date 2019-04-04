@@ -16,6 +16,7 @@ namespace JobApplication.Controllers
     {
         private IUserService UserService;
         private IJobService JobsService;
+        private User loggedUser;
 
         public HomeController(IUserService UserService, IJobService jobsService)
         {
@@ -23,18 +24,21 @@ namespace JobApplication.Controllers
             this.JobsService = jobsService;
         }
 
+        private void CheckLoggedUser()
+        {
+            if (LoggedUserInfo.LoggedUserId != 0)
+            {
+                loggedUser = UserService.GetLoggedUser();
+                ViewData["LoggedUser"] = loggedUser;
+            }
+        }
+
         public IActionResult Index()
         {
-            if (LoggedUserInfo.LoggedUserId==0)
-            {
-                return RedirectToAction("Login", "User");
-            }
-
-            User loggedUser = UserService.GetLoggedUser();
             var allJobs = JobsService.GetAllJobs();
-
-            ViewData["LoggedUser"] = loggedUser;
             ViewData["AllJobs"] = allJobs;
+
+            CheckLoggedUser();
 
             return View();
         }
@@ -43,8 +47,8 @@ namespace JobApplication.Controllers
         {
             ViewData["Message"] = "Your application description page.";
 
-            User loggedUser = UserService.GetLoggedUser();
-            ViewData["LoggedUser"] = loggedUser;
+            CheckLoggedUser();
+
             return View();
         }
 
@@ -52,15 +56,8 @@ namespace JobApplication.Controllers
         {
             ViewData["Message"] = "Your contact page.";
 
-            User loggedUser = UserService.GetLoggedUser();
-            ViewData["LoggedUser"] = loggedUser;
-            return View();
-        }
+            CheckLoggedUser();
 
-        public IActionResult Privacy()
-        {
-            User loggedUser = UserService.GetLoggedUser();
-            ViewData["LoggedUser"] = loggedUser;
             return View();
         }
 
