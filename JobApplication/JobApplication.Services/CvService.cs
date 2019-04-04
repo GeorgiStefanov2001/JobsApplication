@@ -35,19 +35,8 @@ namespace JobApplication.Services
                 Experience = cv.Experience,
                 UserId = loggedUser.Id
             };
-            context.SaveChanges();
 
-            cv.User = new User
-            {
-                FirstName = loggedUser.FirstName,
-                LastName = loggedUser.LastName,
-                Age = loggedUser.Age,
-                Email = loggedUser.Email,
-                Username = loggedUser.Username,
-                Password = loggedUser.Password,
-                ConfirmPassword = loggedUser.ConfirmPassword,
-                IsEmployer = loggedUser.IsEmployer
-            };
+            cv.User = loggedUser;
 
             context.CVs.Add(cv);
             context.SaveChanges();
