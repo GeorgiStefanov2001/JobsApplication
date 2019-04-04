@@ -12,14 +12,27 @@ namespace JobApplication.Controllers
     public class JobsController : Controller
     {
         private IJobService service;
+        private IUserService UserService;
+        private User loggedUser;
 
-        public JobsController(IJobService service)
+        public JobsController(IUserService UserService, IJobService service)
         {
             this.service = service;
+            this.UserService = UserService;
+        }
+
+        private void CheckLoggedUser()
+        {
+            if (LoggedUserInfo.LoggedUserId != 0)
+            {
+                loggedUser = UserService.GetLoggedUser();
+                ViewData["LoggedUser"] = loggedUser;
+            }
         }
 
         public IActionResult CreateJob()
         {
+            CheckLoggedUser();
             return View();
         }
 
@@ -42,6 +55,7 @@ namespace JobApplication.Controllers
         {
             ViewData["Job"] = service.ViewJob(jobName);
 
+            CheckLoggedUser();
             return View();
         }
     }

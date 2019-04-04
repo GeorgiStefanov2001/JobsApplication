@@ -24,20 +24,23 @@ namespace JobApplication.Services
         {
             User loggedUser = userService.GetLoggedUser();
 
-            var project = new Project
+            if (loggedUser.UserCv != null)
             {
-                Name = name,
-                Technology = technology,
-                Description = description,
-                AchievedGoals = achievedGoals,
-                FutureGoals = futureGoals
-            };
+                var project = new Project
+                {
+                    Name = name,
+                    Technology = technology,
+                    Description = description,
+                    AchievedGoals = achievedGoals,
+                    FutureGoals = futureGoals
+                };
 
-            context.Projects.Add(project);
-            loggedUser.UserCv.Projects.Add(project);
-            context.SaveChanges();
-
-            return project.Id;
+                context.Projects.Add(project);
+                loggedUser.UserCv.Projects.Add(project);
+                context.SaveChanges();
+                return project.Id;
+            }
+            return -1;
         }
     }
 }
