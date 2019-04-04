@@ -44,7 +44,15 @@ namespace JobApplication.Controllers
                 service.CreateCv(education, experience, userId);
             }
 
-            return this.RedirectToAction("Index", "Home");
+            CheckLoggedUser();
+            return this.RedirectToAction("Profile", "User");
+        }
+
+        public IActionResult ViewCv()
+        {
+            ViewData["UserCv"] = UserService.GetLoggedUser().UserCv;
+            CheckLoggedUser();
+            return View();
         }
     }
 }

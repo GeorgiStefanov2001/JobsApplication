@@ -3,6 +3,7 @@ using JobApplication.Data.Models;
 using JobApplication.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace JobApplication.Services
@@ -36,7 +37,7 @@ namespace JobApplication.Services
                 };
 
                 context.Projects.Add(project);
-                loggedUser.UserCv.Projects.Add(project);
+                context.Users.FirstOrDefault(u => u.Id == loggedUser.Id).UserCv.Projects.Add(project);
                 context.SaveChanges();
                 return project.Id;
             }

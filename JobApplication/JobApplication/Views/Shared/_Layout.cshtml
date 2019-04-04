@@ -44,8 +44,8 @@
                         <li><a asp-area="" asp-controller="Jobs" asp-action="CreateJob">Create Job</a></li>
                     }
                 </ul>
-                @if (loggedUser != null)
-                {
+                 @if (loggedUser != null)
+                  {
                     @*<ul class="nav navbar-nav">
                         <li><a asp-area="" asp-controller="Cvs" asp-action="CreateCv">Create CV</a> </li>
                         <li><a asp-area="" asp-controller="Projects" asp-action="CreateProject">Create Project</a></li>
@@ -53,17 +53,17 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li style="color:white; padding-top: 15px;">Hello @loggedUser.FirstName @loggedUser.LastName!</li>
-                        <li style="padding-left: 15px;"><a asp-area="" asp-controller="User" asp-action="Login">Log out</a></li>
                         <li><a asp-area="" asp-controller="User" asp-action="Profile">Profile</a></li>
+                        <li style="padding-left: 15px;"><a asp-area="" asp-controller="User" asp-action="Login">Log out</a></li>
                     </ul>
-                }
-                else
-                {
+                  }
+                  else
+                  {
                     <ul class="nav navbar-nav navbar-right">
                         <li><a asp-area="" asp-controller="User" asp-action="Login">Login</a></li>
                         <li><a asp-area="" asp-controller="User" asp-action="Register">Register</a></li>
                     </ul>
-                }
+                  }  
             </div>
         </div>
     </nav>

@@ -1,4 +1,5 @@
-﻿using JobApplication.Services;
+﻿using JobApplication.Data.Models;
+using JobApplication.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobApplication.Controllers
@@ -6,10 +7,20 @@ namespace JobApplication.Controllers
     public class UserController : Controller
     {
         private IUserService service;
+        private User loggedUser;
 
         public UserController(IUserService service)
         {
             this.service = service;    
+        }
+
+        private void CheckLoggedUser()
+        {
+            if (LoggedUserInfo.LoggedUserId != 0)
+            {
+                loggedUser = service.GetLoggedUser();
+                ViewData["LoggedUser"] = loggedUser;
+            }
         }
 
         public IActionResult Register()
@@ -55,6 +66,7 @@ namespace JobApplication.Controllers
         public IActionResult Profile()
         {
             ViewData["User"] = service.GetLoggedUser();
+            CheckLoggedUser();
             return View();
         }
     }
