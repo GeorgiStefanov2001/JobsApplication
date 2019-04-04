@@ -4,10 +4,31 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace JobApplication.Data.Migrations
 {
-    public partial class FixingUserDataModel : Migration
+    public partial class RemovingUserCvFromUserModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Jobs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    Salary = table.Column<decimal>(nullable: false),
+                    Employer = table.Column<string>(nullable: true),
+                    EmployerPhoneNumber = table.Column<string>(nullable: true),
+                    Category = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    WorkPlace = table.Column<string>(nullable: true),
+                    RequiredExperience = table.Column<int>(nullable: true),
+                    RequiredEducation = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Jobs", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
@@ -18,14 +39,23 @@ namespace JobApplication.Data.Migrations
                     LastName = table.Column<string>(nullable: true),
                     Age = table.Column<int>(nullable: true),
                     Email = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
                     Username = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
                     ConfirmPassword = table.Column<string>(nullable: true),
-                    UserCreatedOn = table.Column<DateTime>(nullable: false)
+                    IsEmployer = table.Column<bool>(nullable: false),
+                    UserCreatedOn = table.Column<DateTime>(nullable: false),
+                    JobId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Users_Jobs_JobId",
+                        column: x => x.JobId,
+                        principalTable: "Jobs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -47,32 +77,6 @@ namespace JobApplication.Data.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Jobs",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Salary = table.Column<decimal>(nullable: false),
-                    Employer = table.Column<string>(nullable: true),
-                    Category = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    RequiredExperience = table.Column<int>(nullable: true),
-                    RequiredEducation = table.Column<int>(nullable: true),
-                    CVId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Jobs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Jobs_CVs_CVId",
-                        column: x => x.CVId,
-                        principalTable: "CVs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -102,13 +106,7 @@ namespace JobApplication.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_CVs_UserId",
                 table: "CVs",
-                column: "UserId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Jobs_CVId",
-                table: "Jobs",
-                column: "CVId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Projects_CVId",
@@ -116,18 +114,13 @@ namespace JobApplication.Data.Migrations
                 column: "CVId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_Email_Username",
+                name: "IX_Users_JobId",
                 table: "Users",
-                columns: new[] { "Email", "Username" },
-                unique: true,
-                filter: "[Email] IS NOT NULL AND [Username] IS NOT NULL");
+                column: "JobId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Jobs");
-
             migrationBuilder.DropTable(
                 name: "Projects");
 
@@ -136,6 +129,9 @@ namespace JobApplication.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Jobs");
         }
     }
 }

@@ -17,5 +17,9 @@ namespace JobApplication.Data.Models
         public string AchievedGoals { get; set; }
 
         public string FutureGoals { get; set; }
+
+        public int CvId { get; set; }
+
+        public CV Cv { get; set; }
     }
 }

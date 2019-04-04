@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobApplication.Data.Migrations
 {
     [DbContext(typeof(JobApplicationDbContext))]
-    [Migration("20190404111404_AddingMoreFieldsToJob")]
-    partial class AddingMoreFieldsToJob
+    [Migration("20190404170513_RemovingUserCvFromUserModel")]
+    partial class RemovingUserCvFromUserModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -35,8 +35,7 @@ namespace JobApplication.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("CVs");
                 });
@@ -53,7 +52,7 @@ namespace JobApplication.Data.Migrations
 
                     b.Property<string>("Employer");
 
-                    b.Property<string>("EmployerName");
+                    b.Property<string>("EmployerPhoneNumber");
 
                     b.Property<string>("Name");
 
@@ -111,9 +110,13 @@ namespace JobApplication.Data.Migrations
 
                     b.Property<bool>("IsEmployer");
 
+                    b.Property<int?>("JobId");
+
                     b.Property<string>("LastName");
 
                     b.Property<string>("Password");
+
+                    b.Property<string>("PhoneNumber");
 
                     b.Property<DateTime>("UserCreatedOn");
 
@@ -121,9 +124,7 @@ namespace JobApplication.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Email", "Username")
-                        .IsUnique()
-                        .HasFilter("[Email] IS NOT NULL AND [Username] IS NOT NULL");
+                    b.HasIndex("JobId");
 
                     b.ToTable("Users");
                 });
@@ -131,8 +132,8 @@ namespace JobApplication.Data.Migrations
             modelBuilder.Entity("JobApplication.Data.Models.CV", b =>
                 {
                     b.HasOne("JobApplication.Data.Models.User", "User")
-                        .WithOne("UserCv")
-                        .HasForeignKey("JobApplication.Data.Models.CV", "UserId")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -141,6 +142,13 @@ namespace JobApplication.Data.Migrations
                     b.HasOne("JobApplication.Data.Models.CV")
                         .WithMany("Projects")
                         .HasForeignKey("CVId");
+                });
+
+            modelBuilder.Entity("JobApplication.Data.Models.User", b =>
+                {
+                    b.HasOne("JobApplication.Data.Models.Job")
+                        .WithMany("Applicants")
+                        .HasForeignKey("JobId");
                 });
 #pragma warning restore 612, 618
         }

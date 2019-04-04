@@ -53,7 +53,9 @@ namespace JobApplication.Controllers
 
         public IActionResult ViewCv()
         {
-            ViewData["CV"] = service.ViewCv();
+            var userCv = service.ViewCv();
+            ViewData["UserCv"] = userCv;
+            //ViewData["UserCvProjects"] = context.Projects.Where(p => p.CvId == userCv.Id);
             ViewData["Context"] = context;
             CheckLoggedUser();
             return View();

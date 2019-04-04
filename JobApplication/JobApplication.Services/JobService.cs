@@ -12,12 +12,12 @@ namespace JobApplication.Services
     public class JobService : IJobService
     {
         private JobApplicationDbContext context;
-        private IUserService service;
+        private IUserService userService;
 
-        public JobService(JobApplicationDbContext context, IUserService service)
+        public JobService(JobApplicationDbContext context, IUserService userService)
         {
             this.context = context;
-            this.service = service;
+            this.userService = userService;
         }
 
         public int CreateJob(string name, 
@@ -28,7 +28,7 @@ namespace JobApplication.Services
                              int requiredExperience, 
                              string requiredEducation){
 
-            var loggedUser = service.GetLoggedUser(); 
+            var loggedUser = userService.GetLoggedUser(); 
 
             var job = new Job
             {
@@ -77,7 +77,7 @@ namespace JobApplication.Services
                 return 0; //we need to log in
             }
 
-            var loggedUser = service.GetLoggedUser();
+            var loggedUser = userService.GetLoggedUser();
 
             if (context.Jobs.Where(j => j.Id == id).FirstOrDefault().Applicants.Contains(loggedUser))
             {

@@ -29,11 +29,10 @@ namespace JobApplication.Services
                 UserId = loggedUser.Id
             };
 
-            context.Users.FirstOrDefault(u => u.Id == loggedUser.Id).UserCv = cv;
-
-            cv.User = context.Users.Where(u=>u.Id == loggedUser.Id).FirstOrDefault();
-
             context.CVs.Add(cv);
+            //context.SaveChanges();
+
+            context.CVs.Where(c => c.UserId == loggedUser.Id).FirstOrDefault().User = loggedUser;
             context.SaveChanges();
 
             return cv.Id;
@@ -43,6 +42,5 @@ namespace JobApplication.Services
         {
             return context.CVs.Where(c => c.UserId == LoggedUserInfo.LoggedUserId).FirstOrDefault();
         }
-
     }
 }

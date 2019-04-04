@@ -3,8 +3,9 @@
 
 @{
     ViewData["Title"] = "ViewCv";
-    CV Cv = ViewData["CV"] as CV;
+    CV Cv = ViewData["UserCv"] as CV;
     JobApplicationDbContext context = ViewData["Context"] as JobApplicationDbContext;
+    List<Project> userProjects = context.Projects.Where(p => p.CvId == Cv.Id).ToList();
 }
 
 <div class="list-group">
@@ -16,20 +17,19 @@
                     <hr />
                     <h5>Education: @Cv.Education degree</h5>
                     <h5>Experience: @Cv.Experience years</h5>
-                    @foreach (var project in context.Projects)
+                    @if (userProjects != null)
                     {
-                        <h2 class="card-title">Name: @project.Name</h2>
-                        <h3 class="text-muted">Technology: @project.Technology</h3>
-                        <hr />
-                        <p>Description: @project.Description</p>
-                        <h4> Goals: </h4>
-                        <h5 style="padding-left: 50px;"> Achieved goals: @project.AchievedGoals</h5>
-                        <h5 style="padding-left: 50px;"> Future goals: @project.FutureGoals</h5>
+                        @foreach (var project in userProjects)
+                        {
+                            <h2 class="card-title">Name: @project.Name</h2>
+                            <h3 class="text-muted">Technology: @project.Technology</h3>
+                            <hr />
+                            <p>Description: @project.Description</p>
+                            <h4> Goals: </h4>
+                            <h5 style="padding-left: 50px;"> Achieved goals: @project.AchievedGoals</h5>
+                            <h5 style="padding-left: 50px;"> Future goals: @project.FutureGoals</h5>
+                        }
                     }
-                    @*@if (context.Projects.FirstOrDefault(p => p.Id == Cv.Projects.).Count != 0)
-                    {
-
-                    }*@
                     <a class="btn btn-primary btn-rounded" asp-area="" asp-controller="Projects" asp-action="CreateProject">Add projects you've worked on</a>
                     <br />
                     <br />

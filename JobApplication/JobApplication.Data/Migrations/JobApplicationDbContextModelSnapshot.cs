@@ -15,7 +15,7 @@ namespace JobApplication.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -33,8 +33,7 @@ namespace JobApplication.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("CVs");
                 });
@@ -76,7 +75,7 @@ namespace JobApplication.Data.Migrations
 
                     b.Property<string>("AchievedGoals");
 
-                    b.Property<int?>("CVId");
+                    b.Property<int>("CvId");
 
                     b.Property<string>("Description");
 
@@ -88,7 +87,7 @@ namespace JobApplication.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CVId");
+                    b.HasIndex("CvId");
 
                     b.ToTable("Projects");
                 });
@@ -131,16 +130,17 @@ namespace JobApplication.Data.Migrations
             modelBuilder.Entity("JobApplication.Data.Models.CV", b =>
                 {
                     b.HasOne("JobApplication.Data.Models.User", "User")
-                        .WithOne("UserCv")
-                        .HasForeignKey("JobApplication.Data.Models.CV", "UserId")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("JobApplication.Data.Models.Project", b =>
                 {
-                    b.HasOne("JobApplication.Data.Models.CV")
+                    b.HasOne("JobApplication.Data.Models.CV", "Cv")
                         .WithMany("Projects")
-                        .HasForeignKey("CVId");
+                        .HasForeignKey("CvId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("JobApplication.Data.Models.User", b =>

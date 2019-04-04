@@ -30,7 +30,9 @@ namespace JobApplication.Data.Models
 
         public bool IsEmployer { get; set; }
 
-        public CV UserCv { get; set; }
+        //public int UserCvId { get; set; }
+
+        //public CV UserCv { get; set; }
 
         public DateTime UserCreatedOn { get; set; }
     }

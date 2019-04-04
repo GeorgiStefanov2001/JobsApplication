@@ -1,6 +1,8 @@
-﻿using JobApplication.Data.Models;
+﻿using JobApplication.Data;
+using JobApplication.Data.Models;
 using JobApplication.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace JobApplication.Controllers
 {
@@ -8,10 +10,12 @@ namespace JobApplication.Controllers
     {
         private IUserService service;
         private User loggedUser;
+        private JobApplicationDbContext context;
 
-        public UserController(IUserService service)
+        public UserController(IUserService service, JobApplicationDbContext context)
         {
-            this.service = service;    
+            this.service = service;
+            this.context = context;
         }
 
         private void CheckLoggedUser()
@@ -69,7 +73,9 @@ namespace JobApplication.Controllers
 
         public IActionResult Profile()
         {
-            ViewData["User"] = service.GetLoggedUser();
+            var loggedUser = service.GetLoggedUser();
+            ViewData["User"] = loggedUser;
+            ViewData["UserCv"] = context.CVs.Where(c => c.UserId == loggedUser.Id).FirstOrDefault();
             CheckLoggedUser();
             return View();
         }

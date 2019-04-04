@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Profile";
     User user = ViewData["User"] as User;
+    CV userCv = ViewData["UserCv"] as CV;
 }
 
 
@@ -15,13 +16,13 @@
                     <h3 class="text-muted">Age: @user.Age years old.</h3>
                     <hr />
                     <p>Email: @user.Email</p>
-                    @if (user.UserCv == null)
+                    @if (userCv == null)
                     {
-                        <a class="btn btn-primary btn-rounded" asp-area="" asp-controller="Cvs" asp-action="CreateCv">Create your CV</a>
+                        <a class="btn btn-primary btn-rounded" asp-area="" asp-controller="cvs" asp-action="createcv">create your cv</a>
                     }
                     else
                     {
-                        <a class="btn btn-primary btn-rounded" asp-area="" asp-controller="Cvs" asp-action="ViewCv">Check your CV.</a>
+                        <a class="btn btn-primary btn-rounded" asp-area="" asp-controller="cvs" asp-action="viewcv">check your cv.</a>
                     }
                     <br/>
                     <br/>

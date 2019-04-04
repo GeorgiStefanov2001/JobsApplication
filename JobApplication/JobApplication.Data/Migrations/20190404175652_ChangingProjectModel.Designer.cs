@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobApplication.Data.Migrations
 {
     [DbContext(typeof(JobApplicationDbContext))]
-    [Migration("20190402212500_FixingUserDataModel")]
-    partial class FixingUserDataModel
+    [Migration("20190404175652_ChangingProjectModel")]
+    partial class ChangingProjectModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,8 +35,7 @@ namespace JobApplication.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("CVs");
                 });
@@ -47,25 +46,25 @@ namespace JobApplication.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CVId");
-
                     b.Property<string>("Category");
 
                     b.Property<string>("Description");
 
                     b.Property<string>("Employer");
 
+                    b.Property<string>("EmployerPhoneNumber");
+
                     b.Property<string>("Name");
 
-                    b.Property<int?>("RequiredEducation");
+                    b.Property<string>("RequiredEducation");
 
                     b.Property<int?>("RequiredExperience");
 
                     b.Property<decimal>("Salary");
 
-                    b.HasKey("Id");
+                    b.Property<string>("WorkPlace");
 
-                    b.HasIndex("CVId");
+                    b.HasKey("Id");
 
                     b.ToTable("Jobs");
                 });
@@ -78,7 +77,7 @@ namespace JobApplication.Data.Migrations
 
                     b.Property<string>("AchievedGoals");
 
-                    b.Property<int?>("CVId");
+                    b.Property<int>("CvId");
 
                     b.Property<string>("Description");
 
@@ -90,7 +89,7 @@ namespace JobApplication.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CVId");
+                    b.HasIndex("CvId");
 
                     b.ToTable("Projects");
                 });
@@ -109,9 +108,15 @@ namespace JobApplication.Data.Migrations
 
                     b.Property<string>("FirstName");
 
+                    b.Property<bool>("IsEmployer");
+
+                    b.Property<int?>("JobId");
+
                     b.Property<string>("LastName");
 
                     b.Property<string>("Password");
+
+                    b.Property<string>("PhoneNumber");
 
                     b.Property<DateTime>("UserCreatedOn");
 
@@ -119,9 +124,7 @@ namespace JobApplication.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Email", "Username")
-                        .IsUnique()
-                        .HasFilter("[Email] IS NOT NULL AND [Username] IS NOT NULL");
+                    b.HasIndex("JobId");
 
                     b.ToTable("Users");
                 });
@@ -129,23 +132,24 @@ namespace JobApplication.Data.Migrations
             modelBuilder.Entity("JobApplication.Data.Models.CV", b =>
                 {
                     b.HasOne("JobApplication.Data.Models.User", "User")
-                        .WithOne("UserCv")
-                        .HasForeignKey("JobApplication.Data.Models.CV", "UserId")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("JobApplication.Data.Models.Job", b =>
-                {
-                    b.HasOne("JobApplication.Data.Models.CV")
-                        .WithMany("Jobs")
-                        .HasForeignKey("CVId");
                 });
 
             modelBuilder.Entity("JobApplication.Data.Models.Project", b =>
                 {
-                    b.HasOne("JobApplication.Data.Models.CV")
+                    b.HasOne("JobApplication.Data.Models.CV", "Cv")
                         .WithMany("Projects")
-                        .HasForeignKey("CVId");
+                        .HasForeignKey("CvId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("JobApplication.Data.Models.User", b =>
+                {
+                    b.HasOne("JobApplication.Data.Models.Job")
+                        .WithMany("Applicants")
+                        .HasForeignKey("JobId");
                 });
 #pragma warning restore 612, 618
         }
