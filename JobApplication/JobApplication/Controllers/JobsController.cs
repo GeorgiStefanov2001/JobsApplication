@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using JobApplication.Services;
 using JobApplication.Services.Interfaces;
+using JobApplication.Data.Models;
 
 namespace JobApplication.Controllers
 {
@@ -35,5 +36,13 @@ namespace JobApplication.Controllers
             }
             return this.RedirectToAction("Index", "Home");
         }
+
+        public IActionResult ViewJob(string jobName)
+        {
+            ViewData["Job"] = service.ViewJob(jobName);
+
+            return View();
+        }
     }
+
 }

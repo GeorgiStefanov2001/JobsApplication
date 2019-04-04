@@ -62,5 +62,10 @@ namespace JobApplication.Services
 
             return model;
         }
+
+        public Job ViewJob(string jobName)
+        {
+            return context.Jobs.Where(j => j.Name == jobName).FirstOrDefault();
+        }
     }
 }

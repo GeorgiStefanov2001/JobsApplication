@@ -1,4 +1,5 @@
-﻿using JobApplication.ViewModels;
+﻿using JobApplication.Data.Models;
+using JobApplication.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,5 +16,9 @@ namespace JobApplication.Services.Interfaces
                       string requiredEducation);
 
         AllJobsViewModel GetAllJobs();
+
+        Job ViewJob(string jobName);
     }
+
 }
+
