@@ -28,7 +28,7 @@ namespace JobApplication.Services
                              int requiredExperience, 
                              string requiredEducation){
 
-            var loggedUser = service.GetLoggedUser();
+            var loggedUser = service.GetLoggedUser(); 
 
             var job = new Job
             {
@@ -53,6 +53,7 @@ namespace JobApplication.Services
         {
             var jobs = context.Jobs.Select(j => new CreateJobViewModel()
             {
+                Id = j.Id,
                 Name = j.Name,
                 Salary = j.Salary,
                 Category = j.Category,
@@ -64,9 +65,27 @@ namespace JobApplication.Services
             return model;
         }
 
-        public Job ViewJob(string jobName)
+        public Job ViewJob(int id)
         {
-            return context.Jobs.Where(j => j.Name == jobName).FirstOrDefault();
+            return context.Jobs.Where(j => j.Id == id).FirstOrDefault();
+        }
+
+        public int ApplyForJob(int id)
+        {
+            if (LoggedUserInfo.LoggedUserId == 0)
+            {
+                return 0; //we need to log in
+            }
+
+            var loggedUser = service.GetLoggedUser();
+
+            if (context.Jobs.Where(j => j.Id == id).FirstOrDefault().Applicants.Contains(loggedUser))
+            {
+                return -1;
+            }
+            context.Jobs.Where(j => j.Id == id).FirstOrDefault().Applicants.Add(loggedUser);
+            context.SaveChanges();
+            return 1;
         }
     }
 }

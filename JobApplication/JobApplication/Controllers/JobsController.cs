@@ -11,13 +11,13 @@ namespace JobApplication.Controllers
 {
     public class JobsController : Controller
     {
-        private IJobService service;
+        private IJobService JobsService;
         private IUserService UserService;
         private User loggedUser;
 
-        public JobsController(IUserService UserService, IJobService service)
+        public JobsController(IUserService UserService, IJobService JobsService)
         {
-            this.service = service;
+            this.JobsService = JobsService;
             this.UserService = UserService;
         }
 
@@ -46,17 +46,32 @@ namespace JobApplication.Controllers
                              string requiredEducation){
             if (ModelState.IsValid)
             {
-                service.CreateJob(name, salary, category, description, workPlace, requiredExperience, requiredEducation);
+                JobsService.CreateJob(name, salary, category, description, workPlace, requiredExperience, requiredEducation);
             }
             return this.RedirectToAction("Index", "Home");
         }
 
-        public IActionResult ViewJob(string jobName)
+        public IActionResult ViewJob(int id)
         {
-            ViewData["Job"] = service.ViewJob(jobName);
+            ViewData["Job"] = JobsService.ViewJob(id);
 
             CheckLoggedUser();
             return View();
+        }
+
+        public IActionResult ApplyForJob(int id)
+        {
+            ViewBag.Message = "Successfully applied for job.";
+            if (JobsService.ApplyForJob(id) == -1)
+            {
+                ViewBag.Message = "You have already applied for this job.";
+            }else if(JobsService.ApplyForJob(id) == 0)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            ViewData["Job"] = JobsService.ViewJob(id);
+            return View("ViewJob");
         }
     }
 

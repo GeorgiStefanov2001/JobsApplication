@@ -22,9 +22,11 @@
                     <br />
                     <h5>Contact: @job.EmployerPhoneNumber</h5>
                     <h5>Location: @job.WorkPlace</h5>
+
+                    <a style="margin-top:25px;" class=" btn btn-primary btn-rounded" asp-area="" asp-controller="Jobs" asp-action="ApplyForJob" asp-route-id="@job.Id">Apply for job</a>
                     <br />
-                    <br />
-                    <a class="btn btn-primary btn-rounded" asp-area="" asp-controller="Home" asp-action="Index">Back to all jobs</a>
+                    <p>@ViewBag.Message</p>
+                    <a style="margin-top:75px;" class="btn btn-primary btn-rounded" asp-area="" asp-controller="Home" asp-action="Index">Back to jobs</a>
                 </div>
             </div>
         </li>
