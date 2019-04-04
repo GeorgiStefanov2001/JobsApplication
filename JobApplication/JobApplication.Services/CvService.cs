@@ -43,5 +43,11 @@ namespace JobApplication.Services
 
             return cv.Id;
         }
+
+        public CV ViewCv(int id)
+        {
+            return context.CVs.Where(c => c.UserId == id).FirstOrDefault();
+        }
+
     }
 }

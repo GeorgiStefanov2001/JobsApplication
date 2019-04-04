@@ -48,9 +48,9 @@ namespace JobApplication.Controllers
             return this.RedirectToAction("Profile", "User");
         }
 
-        public IActionResult ViewCv()
+        public IActionResult ViewCv(int id)
         {
-            ViewData["UserCv"] = UserService.GetLoggedUser().UserCv;
+            ViewData["CV"] = service.ViewCv(id);
             CheckLoggedUser();
             return View();
         }
