@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JobApplication</name>
+    </assembly>
+    <members>
+        <member name="T:JobApplication.Controllers.UserController">
+            <summary>
+            This is the controller for the user entity.
+            </summary>
+        </member>
+        <member name="M:JobApplication.Controllers.UserController.CheckLoggedUser">
+            <summary>
+            This method checks if there is a logged user.
+            If there is a logged user, takes it and create a ViewData of it.
+            </summary>
+        </member>
+        <member name="M:JobApplication.Controllers.UserController.Register">
+            <summary>
+            This action returns the Register view in the User folder.
+            </summary>
+            <returns>Aforementioned.</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:JobApplication.Controllers.UserController.Register(System.String,System.String,System.Int32,System.String,System.String,System.String,System.String,System.String,System.Boolean)" -->
+        <member name="M:JobApplication.Controllers.UserController.Login">
+            <summary>
+            This action return the Login view in the User folder.
+            </summary>
+            <returns>Aforementioned.</returns>
+        </member>
+        <member name="M:JobApplication.Controllers.UserController.Login(System.String,System.String)">
+            <summary>
+            This HttpPost action checks if the user has logged in successfully.
+            </summary>
+            <param name="username"></param>
+            <param name="password"></param>
+            <returns>If the user has logged in successfuly, this method redirects him to the index page.
+            Otherwise, it redirects him back to the log in page.
+            </returns>
+        </member>
+        <member name="M:JobApplication.Controllers.UserController.Profile">
+            <summary>
+            This action gets the logged user and his Cv passes them to the Profile view 
+            and returns that view.
+            </summary>
+            <returns>The Profile view</returns>
+        </member>
+    </members>
+</doc>
