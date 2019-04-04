@@ -37,7 +37,8 @@ namespace JobApplication.Services
                 };
 
                 context.Projects.Add(project);
-                context.Users.FirstOrDefault(u => u.Id == loggedUser.Id).UserCv.Projects.Add(project);
+                //context.Users.FirstOrDefault(u => u.Id == loggedUser.Id).UserCv.Projects.Add(project);
+                //context.CVs.Where(c => c.UserId == loggedUser.Id).FirstOrDefault().Projects.Add(project);
                 context.SaveChanges();
                 return project.Id;
             }

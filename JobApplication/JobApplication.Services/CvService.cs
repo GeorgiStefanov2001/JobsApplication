@@ -29,14 +29,9 @@ namespace JobApplication.Services
                 UserId = loggedUser.Id
             };
 
-            context.Users.FirstOrDefault(u => u.Id == loggedUser.Id).UserCv = new CV
-            {
-                Education = cv.Education,
-                Experience = cv.Experience,
-                UserId = loggedUser.Id
-            };
+            context.Users.FirstOrDefault(u => u.Id == loggedUser.Id).UserCv = cv;
 
-            cv.User = loggedUser;
+            cv.User = context.Users.Where(u=>u.Id == loggedUser.Id).FirstOrDefault();
 
             context.CVs.Add(cv);
             context.SaveChanges();
@@ -44,9 +39,9 @@ namespace JobApplication.Services
             return cv.Id;
         }
 
-        public CV ViewCv(int id)
+        public CV ViewCv()
         {
-            return context.CVs.Where(c => c.UserId == id).FirstOrDefault();
+            return context.CVs.Where(c => c.UserId == LoggedUserInfo.LoggedUserId).FirstOrDefault();
         }
 
     }

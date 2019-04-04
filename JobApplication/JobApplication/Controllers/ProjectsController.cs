@@ -43,7 +43,7 @@ namespace JobApplication.Controllers
             {
                 service.CreateProject(name, technology, description, achievedGoals, futureGoals);
             }
-            return this.RedirectToAction("ViewCv", "Cvs");
+            return RedirectToAction("ViewCv", "Cvs");
         }
     }
 }

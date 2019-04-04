@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JobApplication.Data;
 using JobApplication.Data.Models;
 using JobApplication.Services;
 using JobApplication.Services.Interfaces;
@@ -14,11 +15,13 @@ namespace JobApplication.Controllers
         private IUserService UserService;
         private ICvService service;
         private User loggedUser;
+        private JobApplicationDbContext context;
 
-        public CvsController(IUserService UserService, ICvService service)
+        public CvsController(IUserService UserService, ICvService service, JobApplicationDbContext context)
         {
             this.service = service;
             this.UserService = UserService;
+            this.context = context;
         }
 
         private void CheckLoggedUser()
@@ -48,9 +51,10 @@ namespace JobApplication.Controllers
             return this.RedirectToAction("Profile", "User");
         }
 
-        public IActionResult ViewCv(int id)
+        public IActionResult ViewCv()
         {
-            ViewData["CV"] = service.ViewCv(id);
+            ViewData["CV"] = service.ViewCv();
+            ViewData["Context"] = context;
             CheckLoggedUser();
             return View();
         }
