@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace JobApplication.Controllers
 {
+    /// <summary>
+    /// This is the controller for the user entity.
+    /// </summary>
     public class UserController : Controller
     {
         private IUserService service;
@@ -18,6 +21,10 @@ namespace JobApplication.Controllers
             this.context = context;
         }
 
+        /// <summary>
+        /// This method checks if there is a logged user.
+        /// If there is a logged user, takes it and create a ViewData of it.
+        /// </summary>
         private void CheckLoggedUser()
         {
             if (LoggedUserInfo.LoggedUserId != 0)
@@ -27,11 +34,28 @@ namespace JobApplication.Controllers
             }
         }
 
+        /// <summary>
+        /// This action returns the Register view in the User folder.
+        /// </summary>
+        /// <returns>Aforementioned.</returns>
         public IActionResult Register()
         {
             return this.View();
         }
 
+        /// <summary>
+        /// This HttpPost action uses a A UserServiece to create a user and save it in tha database.
+        /// </summary>
+        /// <param name="firstName">First name</param>
+        /// <param name="lastName">Last name</param>
+        /// <param name="age">Age</param>
+        /// <param name="email">Email</param>
+        /// <param name="phoneNumber"><Phone Number/param>
+        /// <param name="username">Username</param>
+        /// <param name="password">Password</param>
+        /// <param name="confirmPassword">Confirm password</param>
+        /// <param name="isEmployer">Is the user an employer</param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Register(string firstName, 
                                       string lastName, 

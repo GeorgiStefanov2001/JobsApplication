@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JobApplication.Data</name>
+    </assembly>
+    <members>
+        <member name="T:JobApplication.Data.ConfigurationData">
+            <summary>
+            This class holds the connection string for connectiong to the data base
+            </summary>
+        </member>
+        <member name="T:JobApplication.Data.JobApplicationDbContext">
+            <summary>
+            This is the DbContext for the database that this application uses.
+            </summary>
+        </member>
+        <member name="M:JobApplication.Data.JobApplicationDbContext.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
+            <summary>
+            This method checks if the optionsBuilder is not already configured and 
+            it is not, configures it by connencting to the database via connection string.
+            </summary>
+            <param name="optionsBuilder">optionsBuilder</param>
+        </member>
+        <member name="M:JobApplication.Data.JobApplicationDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            This method calls the OnModelCreating method of the DbContext class that is inherited.
+            </summary>
+            <param name="modelBuilder">modelBuilder</param>
+        </member>
+    </members>
+</doc>
