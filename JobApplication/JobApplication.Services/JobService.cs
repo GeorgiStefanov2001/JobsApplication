@@ -9,6 +9,10 @@ using System.Text;
 
 namespace JobApplication.Services
 {
+    /// <summary>
+    /// This is a class implements the IJobService interface and is used
+    /// to ensure the functionalities that a certain job has.
+    /// </summary>
     public class JobService : IJobService
     {
         private JobApplicationDbContext context;
@@ -20,6 +24,18 @@ namespace JobApplication.Services
             this.userService = userService;
         }
 
+        /// <summary>
+        /// This method creates a job with the given parameters and adds it
+        /// to the database.
+        /// </summary>
+        /// <param name="name">Job name</param>
+        /// <param name="salary">Job salary</param>
+        /// <param name="category">Job category</param>
+        /// <param name="description">Job description</param>
+        /// <param name="workPlace">Job work place</param>
+        /// <param name="requiredExperience">Job required experience</param>
+        /// <param name="requiredEducation">Job education</param>
+        /// <returns>This method return the job Id.</returns>
         public int CreateJob(string name, 
                              decimal salary, 
                              string category, 
@@ -49,6 +65,10 @@ namespace JobApplication.Services
             return job.Id;
         }
 
+        /// <summary>
+        /// This method returns job according to the AllJobsViewModel.
+        /// </summary>
+        /// <returns>Aforementioned</returns>
         public AllJobsViewModel GetAllJobs()
         {
             var jobs = context.Jobs.Select(j => new CreateJobViewModel()
@@ -65,11 +85,24 @@ namespace JobApplication.Services
             return model;
         }
 
+        /// <summary>
+        /// This method returns the song with the same id as the given one.
+        /// </summary>
+        /// <param name="id">Job Id</param>
+        /// <returns>Aforementioned</returns>
         public Job ViewJob(int id)
         {
             return context.Jobs.Where(j => j.Id == id).FirstOrDefault();
         }
 
+        /// <summary>
+        /// This method enables the user to apply for the listed jobs.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>If there is not any logged user the method returns 0.
+        /// if a user is logged in but tries to apply for a job that he has already applied for, the method returns -1.
+        /// Eventually if a user is logged in and applies for a job he has not applied yet, the method returns 1;
+        /// </returns>
         public int ApplyForJob(int id)
         {
             if (LoggedUserInfo.LoggedUserId == 0)

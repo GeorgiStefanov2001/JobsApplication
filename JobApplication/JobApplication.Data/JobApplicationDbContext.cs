@@ -7,6 +7,9 @@ using System.Text;
 
 namespace JobApplication.Data
 {
+    /// <summary>
+    /// This is the DbContext for the database that this application uses.
+    /// </summary>
     public class JobApplicationDbContext : DbContext
     {
         public JobApplicationDbContext(DbContextOptions<JobApplicationDbContext> options) 
@@ -17,6 +20,11 @@ namespace JobApplication.Data
         public DbSet<CV> CVs { get; set; }
         public DbSet<Project> Projects { get; set; }
 
+        /// <summary>
+        /// This method checks if the optionsBuilder is not already configured and 
+        /// it is not, configures it by connencting to the database via connection string.
+        /// </summary>
+        /// <param name="optionsBuilder">optionsBuilder</param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -26,7 +34,10 @@ namespace JobApplication.Data
 
             base.OnConfiguring(optionsBuilder);
         }
-
+        /// <summary>
+        /// This method calls the OnModelCreating method of the DbContext class that is inherited.
+        /// </summary>
+        /// <param name="modelBuilder">modelBuilder</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

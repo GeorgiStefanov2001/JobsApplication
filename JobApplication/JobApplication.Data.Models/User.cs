@@ -10,6 +10,7 @@ namespace JobApplication.Data.Models
             UserCreatedOn = DateTime.UtcNow;
         }
 
+
         public int Id { get; set; }
 
         public string FirstName { get; set; }
@@ -29,10 +30,6 @@ namespace JobApplication.Data.Models
         public string ConfirmPassword { get; set; }
 
         public bool IsEmployer { get; set; }
-
-        //public int UserCvId { get; set; }
-
-        //public CV UserCv { get; set; }
 
         public DateTime UserCreatedOn { get; set; }
     }

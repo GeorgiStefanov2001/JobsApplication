@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JobApplication.Services</name>
+    </assembly>
+    <members>
+        <member name="T:JobApplication.Services.JobService">
+            <summary>
+            This is a class implements the IJobService interface and is used
+            to ensure the functionalities that a certain job has.
+            </summary>
+        </member>
+        <member name="M:JobApplication.Services.JobService.CreateJob(System.String,System.Decimal,System.String,System.String,System.String,System.Int32,System.String)">
+            <summary>
+            This method creates a job with the given parameters and adds it
+            to the database.
+            </summary>
+            <param name="name">Job name</param>
+            <param name="salary">Job salary</param>
+            <param name="category">Job category</param>
+            <param name="description">Job description</param>
+            <param name="workPlace">Job work place</param>
+            <param name="requiredExperience">Job required experience</param>
+            <param name="requiredEducation">Job education</param>
+            <returns>This method return the job Id.</returns>
+        </member>
+        <member name="M:JobApplication.Services.JobService.GetAllJobs">
+            <summary>
+            This method returns job according to the AllJobsViewModel.
+            </summary>
+            <returns>Aforementioned</returns>
+        </member>
+        <member name="M:JobApplication.Services.JobService.ViewJob(System.Int32)">
+            <summary>
+            This method returns the song with the same id as the given one.
+            </summary>
+            <param name="id">Job Id</param>
+            <returns>Aforementioned</returns>
+        </member>
+        <member name="M:JobApplication.Services.JobService.ApplyForJob(System.Int32)">
+            <summary>
+            This method enables the user to apply for the listed jobs.
+            </summary>
+            <param name="id"></param>
+            <returns>If there is not any logged user the method returns 0.
+            if a user is logged in but tries to apply for a job that he has already applied for, the method returns -1.
+            Eventually if a user is logged in and applies for a job he has not applied yet, the method returns 1;
+            </returns>
+        </member>
+        <member name="T:JobApplication.Services.LoggedUserInfo">
+            <summary>
+            This is a static class which holds the logged user id.
+            </summary>
+        </member>
+        <member name="T:JobApplication.Services.ProjectService">
+            <summary>
+            This class implements the IProjectService interface and is used to
+            ensure the functionalities that a certain project has (to create a project)
+            </summary>
+        </member>
+        <member name="M:JobApplication.Services.ProjectService.CreateProject(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            this method creates a project with the given parameters
+            </summary>
+            <param name="name">Project name</param>
+            <param name="technology">Project technologies</param>
+            <param name="description">Project description</param>
+            <param name="achievedGoals">Project achieved goals</param>
+            <param name="futureGoals">Project future goals</param>
+            <returns>The user that is creating the project has a Cv the method returns the project Id.
+            Otherwise, the method returns -1.
+            </returns>
+        </member>
+        <member name="T:JobApplication.Services.UserService">
+            <summary>
+            This class implements the IUserService interface and is used 
+            to ensure the user functionalities (To be able to log in, to be able to register in the data base and 
+            to get the user that is currently logged in)
+            </summary>
+        </member>
+        <member name="M:JobApplication.Services.UserService.Register(System.String,System.String,System.Int32,System.String,System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            This method adds a user with the given parameters in the User table of the database. 
+            </summary>
+            <param name="firstName">First name</param>
+            <param name="lastName">Last name</param>
+            <param name="age">age</param>
+            <param name="email">email</param>
+            <param name="phoneNumber">Phone number</param>
+            <param name="username">Username</param>
+            <param name="password">Password</param>
+            <param name="confirmPassword">Confirm password</param>
+            <param name="isEmployer">is the user and employer</param>
+            <returns>The Id of the registered user</returns>
+        </member>
+        <member name="M:JobApplication.Services.UserService.Login(System.String,System.String)">
+            <summary>
+            This methods logs in the user
+            </summary>
+            <param name="username">Username</param>
+            <param name="password">Password</param>
+            <returns>This method returns the user Id if it exists in the data base.</returns>
+        </member>
+        <member name="M:JobApplication.Services.UserService.GetLoggedUser">
+            <summary>
+            This method returns the user that is currently logged in.
+            </summary>
+            <returns>The logged in user.</returns>
+        </member>
+    </members>
+</doc>
