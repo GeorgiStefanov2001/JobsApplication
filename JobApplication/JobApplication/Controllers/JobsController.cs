@@ -71,6 +71,7 @@ namespace JobApplication.Controllers
             }
 
             ViewData["Job"] = JobsService.ViewJob(id);
+            CheckLoggedUser();
             return View("ViewJob");
         }
     }
