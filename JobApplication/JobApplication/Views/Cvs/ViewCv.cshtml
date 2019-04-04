@@ -10,9 +10,12 @@
         <li class="list-inline-item">
             <div class="card">
                 <div class="card-body">
+                    <<<<<<< HEAD
+                    <h2 class="card-title">Your CV</h2>
+                    <hr />
                     <h5>Education: @Cv.Education degree</h5>
                     <h5>Experience: @Cv.Experience years</h5>
-                    @if (Cv.Projects.Count != 0)
+                    @if(Cv.Projects.Count != 0)
                     {
                         @foreach (var project in Cv.Projects)
                         {
@@ -21,8 +24,8 @@
                             <hr />
                             <p>Description: @project.Description</p>
                             <h4> Goals: </h4>
-                            <h5 style="padding-left: 50px;">Achieved goals: @project.AchievedGoals</h5>
-                            <h5 style="padding-left: 50px;">Future goals: @project.FutureGoals</h5>
+                            <h5 style = "padding-left: 50px;" > Achieved goals: @project.AchievedGoals</h5>
+                            <h5 style = "padding-left: 50px;" > Future goals: @project.FutureGoals</h5>
                         }
                     }
                     <a class="btn btn-primary btn-rounded" asp-area="" asp-controller="Projects" asp-action="CreateProject">Add projects you've worked on</a>
