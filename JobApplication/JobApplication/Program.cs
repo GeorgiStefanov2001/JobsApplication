@@ -10,8 +10,15 @@ using Microsoft.Extensions.Logging;
 
 namespace JobApplication
 {
+    /// <summary>
+    /// The entry point of the application
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// This method is called first.
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
             CreateWebHostBuilder(args).Build().Run();

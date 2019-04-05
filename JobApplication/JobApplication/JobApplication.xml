@@ -245,5 +245,40 @@
             </summary>
             <returns>The Profile view</returns>
         </member>
+        <member name="T:JobApplication.Program">
+            <summary>
+            The entry point of the application
+            </summary>
+        </member>
+        <member name="M:JobApplication.Program.Main(System.String[])">
+            <summary>
+            This method is called first.
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="T:JobApplication.Startup">
+            <summary>
+            All the initial configuration of the application stays here.
+            </summary>
+        </member>
+        <member name="M:JobApplication.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            The constructor the the Startup class
+            </summary>
+            <param name="configuration">Configuration</param>
+        </member>
+        <member name="M:JobApplication.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services">Services</param>
+        </member>
+        <member name="M:JobApplication.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app">the application builed</param>
+            <param name="env">the application environment</param>
+        </member>
     </members>
 </doc>

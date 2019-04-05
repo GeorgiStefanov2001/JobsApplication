@@ -16,8 +16,15 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace JobApplication
 {
+    /// <summary>
+    /// All the initial configuration of the application stays here.
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// The constructor the the Startup class
+        /// </summary>
+        /// <param name="configuration">Configuration</param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -25,7 +32,10 @@ namespace JobApplication
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to add services to the container.
+        /// </summary>
+        /// <param name="services">Services</param>
         public void ConfigureServices(IServiceCollection services)
         {
 
@@ -36,7 +46,7 @@ namespace JobApplication
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
+            //Here we register all our services and our DbContext.
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<JobApplicationDbContext>(options => options.UseSqlServer(ConfigurationData.ConnectionString));
             services.AddScoped<IUserService, UserService>();
@@ -45,7 +55,11 @@ namespace JobApplication
             services.AddScoped<IProjectService, ProjectService>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app">the application builed</param>
+        /// <param name="env">the application environment</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
