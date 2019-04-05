@@ -18,6 +18,11 @@ namespace JobApplication.Services
         private JobApplicationDbContext context;
         private IUserService userService;
 
+        /// <summary>
+        /// This is the constructor of the JobService class
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="userService"></param>
         public JobService(JobApplicationDbContext context, IUserService userService)
         {
             this.context = context;

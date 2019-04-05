@@ -18,6 +18,12 @@ namespace JobApplication.Services
         private IUserService userService;
         private ICvService cvService;
 
+        /// <summary>
+        /// This is the constructor of the ProjectService class
+        /// </summary>
+        /// <param name="context">Data base context</param>
+        /// <param name="userService">User service</param>
+        /// <param name="cvService">Cv service</param>
         public ProjectService(JobApplicationDbContext context, IUserService userService, ICvService cvService)
         {
             this.context = context;

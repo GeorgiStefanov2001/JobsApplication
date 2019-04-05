@@ -4,11 +4,46 @@
         <name>JobApplication.Services</name>
     </assembly>
     <members>
+        <member name="T:JobApplication.Services.CvService">
+            <summary>
+             This is a class implements the ICvService interface and is used
+             to ensure the functionalities that a certain cv has.
+            </summary>
+        </member>
+        <member name="M:JobApplication.Services.CvService.#ctor(JobApplication.Data.JobApplicationDbContext,JobApplication.Services.IUserService)">
+            <summary>
+            This is the constructor of the ProjectService class
+            </summary>
+            <param name="context">Data base context</param>
+            <param name="userService">User service</param>
+        </member>
+        <member name="M:JobApplication.Services.CvService.CreateCv(System.String,System.Int32,System.Int32)">
+            <summary>
+            This method creates a cv with the given parameters in the database
+            </summary>
+            <param name="education">Education</param>
+            <param name="experience">Experience</param>
+            <param name="userId">The id of the user that will has that cv.</param>
+            <returns>The id of the created cv.</returns>
+        </member>
+        <member name="M:JobApplication.Services.CvService.ViewCv">
+            <summary>
+            This method returns a Cv that will be used in the ViewCv view then.
+            </summary>
+            <returns>Aforementioned.</returns>
+        </member>
         <member name="T:JobApplication.Services.JobService">
             <summary>
             This is a class implements the IJobService interface and is used
             to ensure the functionalities that a certain job has.
             </summary>
+        </member>
+        <member name="M:JobApplication.Services.JobService.#ctor(JobApplication.Data.JobApplicationDbContext,JobApplication.Services.IUserService)">
+            <summary>
+            This is the constructor of the JobService class
+            </summary>
+            <param name="context"></param>
+            <param name="userService"></param>
         </member>
         <member name="M:JobApplication.Services.JobService.CreateJob(System.String,System.Decimal,System.String,System.String,System.String,System.Int32,System.String)">
             <summary>
@@ -57,6 +92,14 @@
             This class implements the IProjectService interface and is used to
             ensure the functionalities that a certain project has (to create a project)
             </summary>
+        </member>
+        <member name="M:JobApplication.Services.ProjectService.#ctor(JobApplication.Data.JobApplicationDbContext,JobApplication.Services.IUserService,JobApplication.Services.Interfaces.ICvService)">
+            <summary>
+            This is the constructor of the ProjectService class
+            </summary>
+            <param name="context">Data base context</param>
+            <param name="userService">User service</param>
+            <param name="cvService">Cv service</param>
         </member>
         <member name="M:JobApplication.Services.ProjectService.CreateProject(System.String,System.String,System.String,System.String,System.String)">
             <summary>

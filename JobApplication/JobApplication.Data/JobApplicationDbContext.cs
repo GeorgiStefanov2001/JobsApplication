@@ -12,13 +12,15 @@ namespace JobApplication.Data
     /// </summary>
     public class JobApplicationDbContext : DbContext
     {
+        public JobApplicationDbContext() { }
+
         public JobApplicationDbContext(DbContextOptions<JobApplicationDbContext> options) 
             : base(options) { }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Job> Jobs { get; set; }
-        public DbSet<CV> CVs { get; set; }
-        public DbSet<Project> Projects { get; set; }
+        public virtual DbSet<User> Users { get; set; } //virtual for moq testing
+        public virtual DbSet<Job> Jobs { get; set; } //virtual for moq testing
+        public virtual DbSet<CV> CVs { get; set; } //virtual for moq testing
+        public virtual DbSet<Project> Projects { get; set; } //virtual for moq testing
 
         /// <summary>
         /// This method checks if the optionsBuilder is not already configured and 
