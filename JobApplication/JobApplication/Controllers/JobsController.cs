@@ -131,6 +131,13 @@ namespace JobApplication.Controllers
             return View("ViewJob");
         }
 
+        /// <summary>
+        /// This action gets all the jobs that are created by the logged user (if he is an employer)
+        /// It puts the user-created jobs and the DbContext in ViewData, checks the logged user
+        /// and returns the ViewCreateJobs view
+        ///and passes that i
+        /// </summary>
+        /// <returns>Afformentioned</returns>
         public IActionResult ViewCreatedJobs()
         {
             ViewData["CreatedJobs"] = JobsService.GetAllJobs(true);

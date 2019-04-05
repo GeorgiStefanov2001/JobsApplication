@@ -72,7 +72,10 @@ namespace JobApplication.Services
 
         /// <summary>
         /// This method returns job according to the AllJobsViewModel.
+        /// If we want to show the jobs that the current user has created (if he is an employer)
+        /// the method's only parameter is set to true and if we want to show all available jobs, it is set to false.
         /// </summary>
+        /// <param name="viewCreatedJobs">view only created jobs</param>
         /// <returns>Aforementioned</returns>
         public AllJobsViewModel GetAllJobs(bool viewCreatedJobs)
         {

@@ -89,7 +89,7 @@ namespace JobApplication.Controllers
         }
 
         /// <summary>
-        /// This action checks if there is any error during the run if the application.
+        /// This action checks if there is any error during the run of the application.
         /// </summary>
         /// <returns>Thew Error view.</returns>
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
