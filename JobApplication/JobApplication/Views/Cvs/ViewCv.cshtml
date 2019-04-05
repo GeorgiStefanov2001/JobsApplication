@@ -17,17 +17,23 @@
                     <hr />
                     <h5>Education: @Cv.Education degree</h5>
                     <h5>Experience: @Cv.Experience years</h5>
+                    <hr />
                     @if (userProjects != null)
                     {
-                        @foreach (var project in userProjects)
+                        <h2>Projects:</h2>
+                        @for (int i = 0; i < userProjects.Count; i++)
                         {
-                            <h2 class="card-title">Name: @project.Name</h2>
-                            <h3 class="text-muted">Technology: @project.Technology</h3>
-                            <hr />
-                            <p>Description: @project.Description</p>
-                            <h4> Goals: </h4>
-                            <h5 style="padding-left: 50px;"> Achieved goals: @project.AchievedGoals</h5>
-                            <h5 style="padding-left: 50px;"> Future goals: @project.FutureGoals</h5>
+                            var project = userProjects[i];
+                            <h2 class ="text-primary"style="padding-top:50px;">Project number @(i+1)</h2>
+                            <div style="padding-left: 50px;" >
+                                <h3 class="card-title">Project Name: @project.Name</h3>
+                                <p>Project Description: @project.Description</p>
+                                <h3 class="text-muted">Technologies used: @project.Technology</h3>
+                                <h4> Goals: </h4>
+                                <h5 style="padding-left: 50px;"> Achieved goals: @project.AchievedGoals</h5>
+                                <h5 style="padding-left: 50px;"> Future goals: @project.FutureGoals</h5>
+                                <hr />
+                            </div>
                         }
                     }
                     <a class="btn btn-primary btn-rounded" asp-area="" asp-controller="Projects" asp-action="CreateProject">Add projects you've worked on</a>
