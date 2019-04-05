@@ -48,7 +48,7 @@ namespace JobApplication.Services
             context.CVs.Add(cv);
             context.SaveChanges();
 
-            context.CVs.Where(c => c.UserId == loggedUser.Id).FirstOrDefault().User = loggedUser;
+            context.CVs.FirstOrDefault(c => c.UserId == loggedUser.Id).User = loggedUser;
             context.SaveChanges();
 
             return cv.Id;
@@ -60,7 +60,7 @@ namespace JobApplication.Services
         /// <returns>Aforementioned.</returns>
         public CV ViewCv()
         {
-            return context.CVs.Where(c => c.UserId == LoggedUserInfo.LoggedUserId).FirstOrDefault();
+            return context.CVs.FirstOrDefault(c => c.UserId == LoggedUserInfo.LoggedUserId);
         }
     }
 }

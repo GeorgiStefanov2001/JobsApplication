@@ -122,7 +122,7 @@ namespace JobApplication.Controllers
         {
             var loggedUser = service.GetLoggedUser();
             ViewData["User"] = loggedUser;
-            ViewData["UserCv"] = context.CVs.Where(c => c.UserId == loggedUser.Id).FirstOrDefault();
+            ViewData["UserCv"] = context.CVs.FirstOrDefault(c => c.UserId == loggedUser.Id);
             CheckLoggedUser();
             return View();
         }

@@ -108,7 +108,7 @@ namespace JobApplication.Services
         /// <returns>Aforementioned</returns>
         public Job ViewJob(int id)
         {
-            return context.Jobs.Where(j => j.Id == id).FirstOrDefault();
+            return context.Jobs.FirstOrDefault(j => j.Id == id);
         }
 
         /// <summary>
@@ -129,18 +129,18 @@ namespace JobApplication.Services
 
             var loggedUser = userService.GetLoggedUser();
 
-            if (context.Jobs.Where(j => j.Id == id).FirstOrDefault().Applicants.Contains(loggedUser))
+            if (context.Jobs.FirstOrDefault(j => j.Id == id).Applicants.Contains(loggedUser))
             {
                 return -1;
             }
 
             var employer = $"{loggedUser.FirstName} {loggedUser.LastName}";
-            if (context.Jobs.Where(j => j.Id == id).FirstOrDefault().Employer == employer) 
+            if (context.Jobs.FirstOrDefault(j => j.Id == id).Employer == employer) 
             {
                 return -2;
             }
 
-            context.Jobs.Where(j => j.Id == id).FirstOrDefault().Applicants.Add(loggedUser);
+            context.Jobs.FirstOrDefault(j => j.Id == id).Applicants.Add(loggedUser);
             context.SaveChanges();
             return 1;
         }

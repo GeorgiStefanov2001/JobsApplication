@@ -42,9 +42,9 @@ namespace JobApplication.Services
                             string confirmPassword,
                             bool isEmployer) {
 
-            bool takenInfo = context.Users.Where(x => x.Username == username).FirstOrDefault() != null 
-                || context.Users.Where(x => x.Email == email).FirstOrDefault() != null 
-                ||context.Users.Where(x => x.PhoneNumber == phoneNumber).FirstOrDefault() != null;
+            bool takenInfo = context.Users.FirstOrDefault(x => x.Username == username) != null 
+                || context.Users.FirstOrDefault(x => x.Email == email) != null 
+                ||context.Users.FirstOrDefault(x => x.PhoneNumber == phoneNumber) != null;
 
             if (takenInfo)
             {

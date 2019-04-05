@@ -45,7 +45,7 @@ namespace JobApplication.Services
         public int CreateProject(string name, string technology, string description, string achievedGoals, string futureGoals)
         {
             User loggeduser = userService.GetLoggedUser();
-            var loggedUserCv =  context.CVs.Where(c => c.UserId == loggeduser.Id).FirstOrDefault();
+            var loggedUserCv =  context.CVs.FirstOrDefault(c => c.UserId == loggeduser.Id);
             if (loggedUserCv != null)
             {
                 var project = new Project
@@ -58,7 +58,7 @@ namespace JobApplication.Services
                 };
 
                 context.Projects.Add(project);
-                context.CVs.Where(c => c.UserId == loggeduser.Id).FirstOrDefault().Projects.Add(project);
+                context.CVs.FirstOrDefault(c => c.UserId == loggeduser.Id).Projects.Add(project);
                 context.SaveChanges();
                 return project.Id;
             }
