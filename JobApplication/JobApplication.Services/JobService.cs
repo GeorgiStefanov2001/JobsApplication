@@ -83,7 +83,8 @@ namespace JobApplication.Services
                 Employer = j.Employer,
                 Salary = j.Salary,
                 Category = j.Category,
-                WorkPlace = j.WorkPlace
+                WorkPlace = j.WorkPlace,
+                Applicants = j.Applicants
             });
 
             if (viewCreatedJobs)
@@ -113,6 +114,7 @@ namespace JobApplication.Services
         /// <param name="id"></param>
         /// <returns>If there is not any logged user the method returns 0.
         /// if a user is logged in but tries to apply for a job that he has already applied for, the method returns -1.
+        /// if a user is trying to apply for a job he created, the method returns -2.
         /// Eventually if a user is logged in and applies for a job he has not applied yet, the method returns 1;
         /// </returns>
         public int ApplyForJob(int id)
@@ -128,6 +130,13 @@ namespace JobApplication.Services
             {
                 return -1;
             }
+
+            var employer = $"{loggedUser.FirstName} {loggedUser.LastName}";
+            if (context.Jobs.Where(j => j.Id == id).FirstOrDefault().Employer == employer) 
+            {
+                return -2;
+            }
+
             context.Jobs.Where(j => j.Id == id).FirstOrDefault().Applicants.Add(loggedUser);
             context.SaveChanges();
             return 1;

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using JobApplication.Services;
 using JobApplication.Services.Interfaces;
 using JobApplication.Data.Models;
+using JobApplication.Data;
 
 namespace JobApplication.Controllers
 {
@@ -18,16 +19,18 @@ namespace JobApplication.Controllers
         private IJobService JobsService;
         private IUserService UserService;
         private User loggedUser;
+        private JobApplicationDbContext context;
 
         /// <summary>
         /// This is the constructor of the JobsController class.
         /// </summary>
         /// <param name="UserService">User service</param>
         /// <param name="JobsService">Job service</param>
-        public JobsController(IUserService UserService, IJobService JobsService)
+        public JobsController(IUserService UserService, IJobService JobsService, JobApplicationDbContext context)
         {
             this.JobsService = JobsService;
             this.UserService = UserService;
+            this.context = context;
         }
 
         /// <summary>
@@ -114,7 +117,11 @@ namespace JobApplication.Controllers
             if (JobsService.ApplyForJob(id) == -1)
             {
                 ViewBag.Message = "You have already applied for this job.";
-            }else if(JobsService.ApplyForJob(id) == 0)
+            }else if (JobsService.ApplyForJob(id) == -2)
+            {
+                ViewBag.Message = "You can't apply for a job you have created.";
+            }
+            else if(JobsService.ApplyForJob(id) == 0)
             {
                 return RedirectToAction("Login", "User");
             }
@@ -128,7 +135,7 @@ namespace JobApplication.Controllers
         {
             ViewData["CreatedJobs"] = JobsService.GetAllJobs(true);
             CheckLoggedUser();
-
+            ViewData["Context"] = context;
             return View();
         }
     }

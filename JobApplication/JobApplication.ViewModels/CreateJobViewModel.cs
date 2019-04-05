@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JobApplication.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -10,6 +11,8 @@ namespace JobApplication.ViewModels
         public int Id { get; set; }
 
         public string Employer { get; set; }
+
+        public ICollection<User> Applicants { get; set; }
 
         [Display(Name = "Name")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter name")]
