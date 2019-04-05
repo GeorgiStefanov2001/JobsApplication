@@ -74,17 +74,24 @@ namespace JobApplication.Services
         /// This method returns job according to the AllJobsViewModel.
         /// </summary>
         /// <returns>Aforementioned</returns>
-        public AllJobsViewModel GetAllJobs()
+        public AllJobsViewModel GetAllJobs(bool viewCreatedJobs)
         {
             var jobs = context.Jobs.Select(j => new CreateJobViewModel()
             {
                 Id = j.Id,
                 Name = j.Name,
+                Employer = j.Employer,
                 Salary = j.Salary,
                 Category = j.Category,
                 WorkPlace = j.WorkPlace
             });
 
+            if (viewCreatedJobs)
+            {
+                var loggedUser = userService.GetLoggedUser();
+                var employer = $"{loggedUser.FirstName} {loggedUser.LastName}";
+                jobs = jobs.Where(j => j.Employer == employer);
+            }
             var model = new AllJobsViewModel() { Jobs = jobs };
 
             return model;

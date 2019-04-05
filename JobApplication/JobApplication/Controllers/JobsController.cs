@@ -123,6 +123,14 @@ namespace JobApplication.Controllers
             CheckLoggedUser();
             return View("ViewJob");
         }
+
+        public IActionResult ViewCreatedJobs()
+        {
+            ViewData["CreatedJobs"] = JobsService.GetAllJobs(true);
+            CheckLoggedUser();
+
+            return View();
+        }
     }
 
 }

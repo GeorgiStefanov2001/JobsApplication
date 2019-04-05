@@ -54,7 +54,7 @@ namespace JobApplication.Controllers
         /// <returns>The Index view</returns>
         public IActionResult Index()
         {
-            var allJobs = JobsService.GetAllJobs();
+            var allJobs = JobsService.GetAllJobs(false);
             ViewData["AllJobs"] = allJobs;
 
             CheckLoggedUser();

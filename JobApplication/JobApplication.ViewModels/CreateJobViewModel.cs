@@ -9,6 +9,8 @@ namespace JobApplication.ViewModels
     {
         public int Id { get; set; }
 
+        public string Employer { get; set; }
+
         [Display(Name = "Name")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter name")]
         [RegularExpression(@"^[a-zA-Z''-'\s]{1,30}$", ErrorMessage = "A name should only contain letters")]

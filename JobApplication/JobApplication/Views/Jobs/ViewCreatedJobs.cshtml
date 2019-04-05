@@ -1,0 +1,24 @@
+﻿@using JobApplication.ViewModels;
+
+@{
+    ViewData["Title"] = "Home Page";
+    AllJobsViewModel jobs = ViewData["CreatedJobs"] as AllJobsViewModel;
+}
+
+<div class="list-group">
+    <ul class="list-unstyled">
+        @foreach (var job in jobs.Jobs)
+        {
+            <li class="list-inline-item">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title text-primary">@job.Name</h2>
+                        <a class="btn btn-primary btn-rounded" asp-area="" asp-controller="Jobs" asp-action="ViewJob" asp-route-id="@job.Id">View job details</a>
+                    </div>
+                </div>
+                <hr />
+            </li>
+        }
+    </ul>
+</div>
+

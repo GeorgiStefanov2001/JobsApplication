@@ -42,6 +42,7 @@
                     @if (loggedUser != null && loggedUser.IsEmployer)
                     {
                         <li><a asp-area="" asp-controller="Jobs" asp-action="CreateJob">Create Job</a></li>
+                        <li><a asp-area="" asp-controller="Jobs" asp-action="ViewCreatedJobs">View created Jobs</a></li>
                     }
                 </ul>
                  @if (loggedUser != null)

@@ -16,11 +16,12 @@ namespace JobApplication.Services.Interfaces
                       int requiredExperience,
                       string requiredEducation);
 
-        AllJobsViewModel GetAllJobs();
+        AllJobsViewModel GetAllJobs(bool viewCreatedJobs);
 
         Job ViewJob(int id);
 
         int ApplyForJob(int id);
+
     }
 
 }
