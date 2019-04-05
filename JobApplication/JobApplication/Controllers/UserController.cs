@@ -7,7 +7,8 @@ using System.Linq;
 namespace JobApplication.Controllers
 {
     /// <summary>
-    /// This is the controller for the user entity.
+    /// This is the controller class for the user entity.
+    /// It inherites the Controller class and provides the actions a certain user has.
     /// </summary>
     public class UserController : Controller
     {
@@ -15,6 +16,11 @@ namespace JobApplication.Controllers
         private User loggedUser;
         private JobApplicationDbContext context;
 
+        /// <summary>
+        /// This is the constructor of the UserController class
+        /// </summary>
+        /// <param name="service">The User service that this controller will use</param>
+        /// <param name="context">Data base context</param>
         public UserController(IUserService service, JobApplicationDbContext context)
         {
             this.service = service;
