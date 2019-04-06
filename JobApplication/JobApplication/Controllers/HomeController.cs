@@ -9,6 +9,7 @@ using JobApplication.Services;
 using JobApplication.Data;
 using JobApplication.Data.Models;
 using JobApplication.Services.Interfaces;
+using JobApplication.Controllers.Interfaces;
 
 namespace JobApplication.Controllers
 {
@@ -16,7 +17,7 @@ namespace JobApplication.Controllers
     /// This is the home controller class.
     /// It inherites the Controller class and provides the initial actions a certain user has.
     /// </summary>
-    public class HomeController : Controller
+    public class HomeController : Controller, ICheckLoggedUser
     {
         private IUserService UserService;
         private IJobService JobsService;
@@ -25,8 +26,8 @@ namespace JobApplication.Controllers
         /// <summary>
         /// This is the constructor of the HomeController class.
         /// </summary>
-        /// <param name="UserService">User service</param>
-        /// <param name="jobsService">Job service</param>
+        /// <param name="UserService">The service, responsible for the User</param>
+        /// <param name="jobsService">The service, responsible for the Jobs</param>
         public HomeController(IUserService UserService, IJobService jobsService)
         {
             this.UserService = UserService;
@@ -34,11 +35,12 @@ namespace JobApplication.Controllers
         }
 
         /// <summary>
-        /// This method checks if there is any logged user.
+        /// This method checks if there is a logged user by getting the UserId property from the static class 'LoggedUserInfo'.
         /// If so, the logged user is put in the ViewData which is
-        /// passed to the Index, Contact, About and Provacy views.
+        /// passed to the Index, Contact, About and Privacy views
+        /// so dynamic user information (like the one used in the navbar) can be seen from all views
         /// </summary>
-        private void CheckLoggedUser()
+        public void CheckLoggedUser()
         {
             if (LoggedUserInfo.LoggedUserId != 0)
             {
@@ -48,7 +50,8 @@ namespace JobApplication.Controllers
         }
 
         /// <summary>
-        /// This action checks the logged user and puts all created jobs in the ViewData and 
+        /// This action represents the Index page - the initial page that the user is put into
+        /// It checks the logged user and puts all created jobs in the ViewData and 
         /// passes it to the Index view.
         /// </summary>
         /// <returns>The Index view</returns>
@@ -63,7 +66,8 @@ namespace JobApplication.Controllers
         }
 
         /// <summary>
-        /// This action checks the logged user and puts a message in the ViewData.
+        /// This action checks the logged user and puts a message in the ViewData
+        /// that details the contents of the view.
         /// </summary>
         /// <returns>The About view</returns>
         public IActionResult About()
@@ -76,7 +80,8 @@ namespace JobApplication.Controllers
         }
 
         /// <summary>
-        /// This action checks the logged user and puts a message in the ViewData.
+        /// This action checks the logged user and puts a message in the ViewData
+        ///that details the contents of the view.
         /// </summary>
         /// <returns>The Contact view</returns>
         public IActionResult Contact()

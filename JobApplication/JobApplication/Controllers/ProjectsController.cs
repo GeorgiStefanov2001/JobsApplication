@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JobApplication.Controllers.Interfaces;
 using JobApplication.Data.Models;
 using JobApplication.Services;
 using JobApplication.Services.Interfaces;
@@ -13,29 +14,30 @@ namespace JobApplication.Controllers
     /// This is the controller class for the Project entity.
     /// It inherites the Controller class and provides the actions a certain project has.
     /// </summary>
-    public class ProjectsController : Controller
+    public class ProjectsController : Controller, ICheckLoggedUser
     {
-        private IProjectService service;
+        private IProjectService ProjectService;
         private IUserService UserService;
         private User loggedUser;
 
         /// <summary>
         /// This is the contructor of the ProjectController class
         /// </summary>
-        /// <param name="UserService">User service</param>
-        /// <param name="service">Project service</param>
-        public ProjectsController(IUserService UserService, IProjectService service)
+        /// <param name="UserService">The service, responsible for the User</param>
+        /// <param name="ProjectService">The service, responsible for the Projects</param>
+        public ProjectsController(IUserService UserService, IProjectService ProjectService)
         {
-            this.service = service;
+            this.ProjectService = ProjectService;
             this.UserService = UserService;
         }
 
         /// <summary>
-        /// This method checks if there is any logged user.
+        /// This method checks if there is a logged user by getting the UserId property from the static class 'LoggedUserInfo'.
         /// If so, the logged user is put in the ViewData which is
-        /// passed to the CreateProject view.
+        /// passed to the Index, Contact, About and Privacy views
+        /// so dynamic user information (like the one used in the navbar) can be seen from all views
         /// </summary>
-        private void CheckLoggedUser()
+        public void CheckLoggedUser()
         {
             if (LoggedUserInfo.LoggedUserId != 0)
             {
@@ -45,9 +47,10 @@ namespace JobApplication.Controllers
         }
 
         /// <summary>
-        /// This action checks the logged user. 
+        /// This action checks the logged user (for dynamic user information as mentioned before)
+        /// and returns the CreateProject view where the user can create projects he has worked on.
         /// </summary>
-        /// <returns>The CreateProject view and passes the ViewData to that view.</returns>
+        /// <returns>Aforementioned</returns>
         public IActionResult CreateProject()
         {
             CheckLoggedUser();
@@ -55,23 +58,24 @@ namespace JobApplication.Controllers
         }
 
         /// <summary>
-        /// This HttpPost action uses the Project service to create a project
+        /// This HttpPost action uses the Project service
+        /// to execute the functionality of creating a project the user has worked on
         /// with the given parameters.
+        /// All the validation is done by using ModelState
         /// </summary>
-        /// <param name="name">Project name</param>
-        /// <param name="technology">Project technology</param>
-        /// <param name="description">Project description</param>
-        /// <param name="achievedGoals">Project achieved goals</param>
-        /// <param name="futureGoals">Project future goals</param>
-        /// <returns>A RedirectToAction method which redirects 
-        /// the user to the ViewCv view where you can check your CV.
+        /// <param name="name">The name of the project</param>
+        /// <param name="technology">A string that describes the technologies that were used in the project</param>
+        /// <param name="description">A description of the project </param>
+        /// <param name="achievedGoals">Goals and milestones that the user(s) have achieved</param>
+        /// <param name="futureGoals">Goals and milestones that the user(s) have not yet achieved and want to do so in the future</param>
+        /// <returns>A RedirectToAction method which redirects the user to the 'ViewCv' action in the Cvs controller where he can view his CV.
         /// </returns>
         [HttpPost]
         public IActionResult CreateProject(string name, string technology, string description, string achievedGoals, string futureGoals)
         {
             if (ModelState.IsValid)
             {
-                service.CreateProject(name, technology, description, achievedGoals, futureGoals);
+                ProjectService.CreateProject(name, technology, description, achievedGoals, futureGoals);
             }
             return RedirectToAction("ViewCv", "Cvs");
         }

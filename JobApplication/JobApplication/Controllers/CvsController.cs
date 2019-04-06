@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JobApplication.Controllers.Interfaces;
 using JobApplication.Data;
 using JobApplication.Data.Models;
 using JobApplication.Services;
@@ -12,34 +13,35 @@ namespace JobApplication.Controllers
 {
     /// <summary>
     /// This is the controller for the CV entity.
-    /// It inherites the Controller class and provides the actions a certain cv has.
+    /// It inherites the Controller class and provides the actions a certain CV has.
     /// </summary>
-    public class CvsController : Controller
+    public class CvsController : Controller, ICheckLoggedUser
     {
         private IUserService UserService;
-        private ICvService service;
+        private ICvService CVService;
         private User loggedUser;
         private JobApplicationDbContext context;
 
         /// <summary>
         /// This is the constructor of the CvsController class.
         /// </summary>
-        /// <param name="UserService">User service</param>
-        /// <param name="service">Cv service</param>
+        /// <param name="UserService">The service, responsible for the User</param>
+        /// <param name="CVService">The service, responsible for the CV</param>
         /// <param name="context">Data base context</param>
-        public CvsController(IUserService UserService, ICvService service, JobApplicationDbContext context)
+        public CvsController(IUserService UserService, ICvService CVService, JobApplicationDbContext context)
         {
-            this.service = service;
             this.UserService = UserService;
+            this.CVService = CVService;
             this.context = context;
         }
 
         /// <summary>
-        /// This method checks if there is any logged user.
+        /// This method checks if there is a logged user by getting the UserId property from the static class 'LoggedUserInfo'.
         /// If so, the logged user is put in the ViewData which is
-        /// passed to the Index, Contact, About and Provacy views.
+        /// passed to the Index, Contact, About and Privacy views
+        /// so dynamic user information (like the one used in the navbar) can be seen from all views
         /// </summary>
-        private void CheckLoggedUser()
+        public void CheckLoggedUser()
         {
             if (LoggedUserInfo.LoggedUserId != 0)
             {
@@ -49,9 +51,10 @@ namespace JobApplication.Controllers
         }
 
         /// <summary>
-        /// This action checks the logged user.
+        /// This action checks the logged user (for dynamic user information as mentioned before)
+        /// and returns the CreateCV view where the user can create his CV.
         /// </summary>
-        /// <returns>The CreateCv view where the user can create his CV.</returns>
+        /// <returns>Aformentioned</returns>
         public IActionResult CreateCv()
         {
             CheckLoggedUser();
@@ -59,19 +62,20 @@ namespace JobApplication.Controllers
         }
 
         /// <summary>
-        /// This HttpPost action uses the Cv service to create
-        /// a cv with the given parameters.
+        /// This HttpPost action uses the CV service to create
+        /// a CV with the given parameters.
+        /// All the validation is done by using ModelState
         /// </summary>
-        /// <param name="education">Education</param>
-        /// <param name="experience">Experience</param>
-        /// <param name="userId">The Id of the user with that cv</param>
-        /// <returns>A RedirectToAction method which redirects the user to the Profile page.</returns>
+        /// <param name="education">The education of the user (Masters, Bachelor, etc.)</param>
+        /// <param name="experience">The experience of the user expressed by years of labour</param>
+        /// <param name="userId">The unique Id of the user whose CV is being created</param>
+        /// <returns>A RedirectToAction method which redirects to the 'Profile' Action in the 'User' controller</returns>
         [HttpPost]
         public IActionResult CreateCv(string education, int experience, int userId)
         {
             if (ModelState.IsValid)
             {
-                service.CreateCv(education, experience, userId);
+                CVService.CreateCv(education, experience, userId);
             }
 
             CheckLoggedUser();
@@ -79,13 +83,14 @@ namespace JobApplication.Controllers
         }
 
         /// <summary>
-        /// This action takes the user cv and then puts it in the ViewData.
-        /// Finally it puts the data base context to the ViewData.
+        /// Using the CV service, this action takes the user's CV and then puts it into the ViewData 
+        /// It then puts the data base context into the ViewData and gets the logged user by using the already mentioned 'CheckLoggedUser' method.
+        /// All the ViewData parameters are then passed to the corresponding view.
         /// </summary>
-        /// <returns>The ViewCv view which uses the objects in the ViewData.</returns>
+        /// <returns>The ViewCv view where the user can view his CV details</returns>
         public IActionResult ViewCv()
         {
-            var userCv = service.ViewCv();
+            var userCv = CVService.ViewCv();
             ViewData["UserCv"] = userCv;
             ViewData["Context"] = context;
             CheckLoggedUser();

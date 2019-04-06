@@ -7,6 +7,7 @@ using JobApplication.Services;
 using JobApplication.Services.Interfaces;
 using JobApplication.Data.Models;
 using JobApplication.Data;
+using JobApplication.Controllers.Interfaces;
 
 namespace JobApplication.Controllers
 {
@@ -14,7 +15,7 @@ namespace JobApplication.Controllers
     /// This is the controller for the Job entity.
     /// It inherites the Controller class and provides the actions a certain job has.
     /// </summary>
-    public class JobsController : Controller
+    public class JobsController : Controller, ICheckLoggedUser
     {
         private IJobService JobsService;
         private IUserService UserService;
@@ -24,8 +25,9 @@ namespace JobApplication.Controllers
         /// <summary>
         /// This is the constructor of the JobsController class.
         /// </summary>
-        /// <param name="UserService">User service</param>
-        /// <param name="JobsService">Job service</param>
+        /// <param name="UserService">The service, responsible for the User</param>
+        /// <param name="JobsService">The service, responsible for the Jobs</param>
+        /// <param name="context">Data base context</param>
         public JobsController(IUserService UserService, IJobService JobsService, JobApplicationDbContext context)
         {
             this.JobsService = JobsService;
@@ -34,11 +36,12 @@ namespace JobApplication.Controllers
         }
 
         /// <summary>
-        /// This method checks if there is any logged user.
+        /// This method checks if there is a logged user by getting the UserId property from the static class 'LoggedUserInfo'.
         /// If so, the logged user is put in the ViewData which is
-        /// passed to the CreateJob view.
+        /// passed to the Index, Contact, About and Privacy views
+        /// so dynamic user information (like the one used in the navbar) can be seen from all views
         /// </summary>
-        private void CheckLoggedUser()
+        public void CheckLoggedUser()
         {
             if (LoggedUserInfo.LoggedUserId != 0)
             {
@@ -48,9 +51,10 @@ namespace JobApplication.Controllers
         }
 
         /// <summary>
-        /// This action checks the logged user.
+        /// This action checks the logged user (for dynamic user information as mentioned before)
+        /// and returns the CreateJob view where the user that is an employer can create a job.
         /// </summary>
-        /// <returns>The CreateJob view and passes it the ViewData.</returns>
+        /// <returns>Aforementioned</returns>
         public IActionResult CreateJob()
         {
             CheckLoggedUser();
@@ -60,25 +64,20 @@ namespace JobApplication.Controllers
         /// <summary>
         /// This HttpPost action uses the Job service to 
         /// create a job with the given parameters.
+        /// All the validation is done by using ModelState
         /// </summary>
-        /// <param name="name">Job name</param>
-        /// <param name="salary">Job salary</param>
-        /// <param name="category">Job category</param>
-        /// <param name="description">Job description</param>
-        /// <param name="workPlace">Job work place</param>
-        /// <param name="requiredExperience">Job's required experience</param>
-        /// <param name="requiredEducation">Job's required education</param>
-        /// <returns>A RedirectToAction method which redirects the user to the Index view
-        /// where he can continue searching for jobs.
-        /// </returns>
+        /// <param name="name">The name of the job that is being created</param>
+        /// <param name="salary">The monthly salary of the job</param>
+        /// <param name="category">The category of the job i.e. programming, management, etc.</param>
+        /// <param name="description">The description of the job so that users, applying for it, can have a better understanding of the work process</param>
+        /// <param name="workPlace">The work place i.e. Sofiq,Bulgaria</param>
+        /// <param name="requiredExperience">The experience, required for the job</param>
+        /// <param name="requiredEducation">The education, required for the job</param>
+        /// <returns>A RedirectToAction method which redirects the user to the 'Index' view in the 'Home' controller
+        /// where he can continue searching for jobs.</returns>
         [HttpPost]
-        public IActionResult CreateJob(string name,
-                             decimal salary,
-                             string category,
-                             string description,
-                             string workPlace,
-                             int requiredExperience,
-                             string requiredEducation){
+        public IActionResult
+            CreateJob (string name, decimal salary, string category, string description, string workPlace, int requiredExperience, string requiredEducation){
             if (ModelState.IsValid)
             {
                 JobsService.CreateJob(name, salary, category, description, workPlace, requiredExperience, requiredEducation);
@@ -87,10 +86,11 @@ namespace JobApplication.Controllers
         }
 
         /// <summary>
-        /// This action checks the logged user and puts the job that is going to be viewed in details in the ViewData.
+        /// Using the Jobs service, this action takes the requested by id job and then puts it into the ViewData 
+        /// and then checks the logged user 
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns>Returns the ViewJob view and passes it the ViewData.</returns>
+        /// <param name="id">The id of the job the user wants to view in more detail</param>
+        /// <returns>Returns the ViewJob view where the user can view the job in more detail</returns>
         public IActionResult ViewJob(int id)
         {
             ViewData["Job"] = JobsService.ViewJob(id);
@@ -100,17 +100,19 @@ namespace JobApplication.Controllers
         }
 
         /// <summary>
-        /// This action represents the applying functionaity.
-        /// If the user has already applied for the job that he wants to apply
-        /// the application tells him that he has already applied and nothing happens.
-        /// If the user is not logged in yet but tries to apply for a job, the user is 
-        /// redirected to the log in page where he can log in and then continue searching for jobs.
-        /// Otherwise (if the user has logged in and wants to apply for a job he has not already), 
-        /// that job is put in the ViewData and the methods returns the ViewJob view with a messeage telling
-        /// the user that he successfully applied for that job. 
+        /// This action represents the applying for a job functionaity.
+        /// If the user has already applied for the requested job,
+        /// he is prompted that he has already applied and nothing happens.
+        /// If the user is not logged in yet and tries to apply for a job, he is 
+        /// redirected to the log in page where he can log in and then apply for the desired job.
+        /// Otherwise (if the user has logged in and wants to apply for a job he has not already applied for), 
+        /// the job application is successfull and that job is put in the ViewData 
+        /// Depending on the outcome of the 'ApplyForJob' method inside the Jobs service
+        /// the ViewBag message is different.
+        /// The ViewBag message, alongside with the View data, is passed into the ViewJob view
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns>Described above.</returns>
+        /// <param name="id">The id of the job the user wants to apply for</param>
+        /// <returns>The ViewJob view where the user can view the job in more detail (so in fact - he stays in the same view)</returns>
         public IActionResult ApplyForJob(int id)
         {
             ViewBag.Message = "Successfully applied for job.";
@@ -132,12 +134,10 @@ namespace JobApplication.Controllers
         }
 
         /// <summary>
-        /// This action gets all the jobs that are created by the logged user (if he is an employer)
-        /// It puts the user-created jobs and the DbContext in ViewData, checks the logged user
-        /// and returns the ViewCreateJobs view
-        ///and passes that i
+        /// This action returns all the jobs that are created by the logged user (if he is an employer)
+        /// It puts the user-created jobs and the DbContext in ViewData and checks the logged user
         /// </summary>
-        /// <returns>Afformentioned</returns>
+        /// <returns>ViewCreateJobs view where the employer can view the jobs that he created</returns>
         public IActionResult ViewCreatedJobs()
         {
             ViewData["CreatedJobs"] = JobsService.GetAllJobs(true);
