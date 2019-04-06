@@ -22,8 +22,8 @@ namespace JobApplication.Services
         /// This is the constructor of the ProjectService class
         /// </summary>
         /// <param name="context">Data base context</param>
-        /// <param name="userService">User service</param>
-        /// <param name="cvService">Cv service</param>
+        /// <param name="userService">The service that is responsible for the user</param>
+        /// <param name="cvService">The service that is responsible for the CVs</param>
         public ProjectService(JobApplicationDbContext context, IUserService userService, ICvService cvService)
         {
             this.context = context;
@@ -32,7 +32,11 @@ namespace JobApplication.Services
         }
 
         /// <summary>
-        /// this method creates a project with the given parameters
+        /// this method creates a project with the given parameters 
+        /// by first getting the logged user and checks if he has a CV.
+        /// If that is true, the creation of the project is successful and the project is added into the user's CV
+        /// and all the changes are saved in the database.
+        /// Otherwise, the method returns -1;
         /// </summary>
         /// <param name="name">Project name</param>
         /// <param name="technology">Project technologies</param>

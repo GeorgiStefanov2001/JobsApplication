@@ -5,6 +5,9 @@ using JobApplication.Data.Models;
 
 namespace JobApplication.Services
 {
+    /// <summary>
+    /// The interface that is implemented by the User service
+    /// </summary>
     public interface IUserService
     {
         int Register(string firstName, 

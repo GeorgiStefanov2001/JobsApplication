@@ -10,7 +10,7 @@ using System.Text;
 namespace JobApplication.Services
 {
     /// <summary>
-    /// This is a class implements the IJobService interface and is used
+    /// This class implements the IJobService interface and is used
     /// to ensure the functionalities that a certain job has.
     /// </summary>
     public class JobService : IJobService
@@ -21,8 +21,8 @@ namespace JobApplication.Services
         /// <summary>
         /// This is the constructor of the JobService class
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="userService"></param>
+        /// <param name="context">Data base context</param>
+        /// <param name="userService">The service that is responsible for the user</param>
         public JobService(JobApplicationDbContext context, IUserService userService)
         {
             this.context = context;
@@ -33,14 +33,14 @@ namespace JobApplication.Services
         /// This method creates a job with the given parameters and adds it
         /// to the database.
         /// </summary>
-        /// <param name="name">Job name</param>
-        /// <param name="salary">Job salary</param>
-        /// <param name="category">Job category</param>
-        /// <param name="description">Job description</param>
-        /// <param name="workPlace">Job work place</param>
-        /// <param name="requiredExperience">Job required experience</param>
-        /// <param name="requiredEducation">Job education</param>
-        /// <returns>This method return the job Id.</returns>
+        /// <param name="name">The name of the job that is being created</param>
+        /// <param name="salary">The monthly salary of the job</param>
+        /// <param name="category">The category of the job i.e. programming, management, etc.</param>
+        /// <param name="description">The description of the job so that users, applying for it, can have a better understanding of the work process</param>
+        /// <param name="workPlace">The work place i.e. Sofiq,Bulgaria</param>
+        /// <param name="requiredExperience">The experience, required for the job</param>
+        /// <param name="requiredEducation">The education, required for the job</param>
+        /// <returns>the id of the newly created job.</returns>
         public int CreateJob(string name, 
                              decimal salary, 
                              string category, 
@@ -71,12 +71,12 @@ namespace JobApplication.Services
         }
 
         /// <summary>
-        /// This method returns job according to the AllJobsViewModel.
+        /// This method is responsible for getting all the available jobs so the user can browse through them.
         /// If we want to show the jobs that the current user has created (if he is an employer)
         /// the method's only parameter is set to true and if we want to show all available jobs, it is set to false.
         /// </summary>
         /// <param name="viewCreatedJobs">view only created jobs</param>
-        /// <returns>Aforementioned</returns>
+        /// <returns>A new AllJobs view model for the jobs we have sellected based on the viewCreatedJobs parameter</returns>
         public AllJobsViewModel GetAllJobs(bool viewCreatedJobs)
         {
             var jobs = context.Jobs.Select(j => new CreateJobViewModel()
@@ -102,9 +102,9 @@ namespace JobApplication.Services
         }
 
         /// <summary>
-        /// This method returns the song with the same id as the given one.
+        /// This method returns the requested job based on the given id.
         /// </summary>
-        /// <param name="id">Job Id</param>
+        /// <param name="id">the id of the requested job</param>
         /// <returns>Aforementioned</returns>
         public Job ViewJob(int id)
         {
@@ -112,13 +112,13 @@ namespace JobApplication.Services
         }
 
         /// <summary>
-        /// This method enables the user to apply for the listed jobs.
+        /// This method allows the user to apply for the listed jobs.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns>If there is not any logged user the method returns 0.
-        /// if a user is logged in but tries to apply for a job that he has already applied for, the method returns -1.
-        /// if a user is trying to apply for a job he created, the method returns -2.
-        /// Eventually if a user is logged in and applies for a job he has not applied yet, the method returns 1;
+        /// <param name="id">The id of the job that the user wants to apply for.</param>
+        /// <returns>If there isn't a logged user the method returns 0.
+        /// if a user is logged in, but tries to apply for a job that he has already applied for, the method returns -1.
+        /// if a user is trying to apply for a job he has created, the method returns -2.
+        /// Eventually, if a user is logged in and applies for a job he has not applied yet or created, the method returns 1;
         /// </returns>
         public int ApplyForJob(int id)
         {

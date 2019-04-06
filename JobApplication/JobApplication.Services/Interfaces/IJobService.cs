@@ -6,6 +6,9 @@ using System.Text;
 
 namespace JobApplication.Services.Interfaces
 {
+    /// <summary>
+    /// The interface that is implemented by the Job service
+    /// </summary>
     public interface IJobService
     {
         int CreateJob(string name,

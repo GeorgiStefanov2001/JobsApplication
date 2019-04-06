@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\SoftUni\JobsApplication\JobApplication\JobApplication.Services\JobApplication.Services.xml</DocumentationFile>
+    <DocumentationFile>C:\Goshko\SoftUni\JobsApplication\JobApplication\JobApplication.Services\JobApplication.Services.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

@@ -17,6 +17,8 @@ namespace JobApplication.Data
         public JobApplicationDbContext(DbContextOptions<JobApplicationDbContext> options) 
             : base(options) { }
 
+
+        //Below are all the DBSets, needed for the database linking
         public virtual DbSet<User> Users { get; set; } //virtual for moq testing
         public virtual DbSet<Job> Jobs { get; set; } //virtual for moq testing
         public virtual DbSet<CV> CVs { get; set; } //virtual for moq testing
@@ -24,7 +26,7 @@ namespace JobApplication.Data
 
         /// <summary>
         /// This method checks if the optionsBuilder is not already configured and 
-        /// it is not, configures it by connencting to the database via connection string.
+        /// if it is not, configures it by connencting to the database via connection string.
         /// </summary>
         /// <param name="optionsBuilder">optionsBuilder</param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

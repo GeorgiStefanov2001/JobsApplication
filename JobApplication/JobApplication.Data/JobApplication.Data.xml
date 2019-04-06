@@ -6,7 +6,14 @@
     <members>
         <member name="T:JobApplication.Data.ConfigurationData">
             <summary>
-            This class holds the connection string for connectiong to the data base
+            This class holds the connection string for connecting to the data base
+            </summary>
+        </member>
+        <member name="F:JobApplication.Data.ConfigurationData.ConnectionString">
+            <summary>
+            The connection string, used for connecting to the database
+            The second one is for the other person, working on the project
+            (we know we should have added it in the gitignore...)
             </summary>
         </member>
         <member name="T:JobApplication.Data.JobApplicationDbContext">
@@ -17,7 +24,7 @@
         <member name="M:JobApplication.Data.JobApplicationDbContext.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
             <summary>
             This method checks if the optionsBuilder is not already configured and 
-            it is not, configures it by connencting to the database via connection string.
+            if it is not, configures it by connencting to the database via connection string.
             </summary>
             <param name="optionsBuilder">optionsBuilder</param>
         </member>
