@@ -1,2 +1,2 @@
-# JobsApplication
-Our SoftUni web application using ASP.NET
+# VacationManager
+ASP.NET project for Software Engineering course
